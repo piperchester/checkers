@@ -11,25 +11,20 @@
  *
  */
 
-import java.awt.*;
 import javax.swing.*;
 
 /**
- *  This class inherits from the player. 
- *  This class identifies that the local player 
- *  is the second player in the game.
+ *  Identifies that the local player is the second player in the game.
  *
- *  @author
  */
-
 public class LocalPlayer extends Player {
     
     /**
-     * This is a default constructor for this object
+     * Creates a LocalPlayer with rules and the driver.
      */
     public LocalPlayer( int num, Rules rules, Driver theDriver ){
-	super( num, rules, theDriver );
-	type = Player.LOCALPLAYER;
+		super( num, rules, theDriver );
+		type = Player.LOCALPLAYER;
     }
     
     /**
@@ -39,7 +34,7 @@ public class LocalPlayer extends Player {
      * know.
      */
     public void offerDraw( Player player ){
-	theDriver.drawOffered( this );
+    	theDriver.drawOffered(this);
     }
     
     /**
@@ -50,24 +45,24 @@ public class LocalPlayer extends Player {
      */
     public void acceptDraw( Player player ){
 	
-	int selected = JOptionPane.showConfirmDialog( null, player.getName()
-		   	      + " has requested a draw."
-	       		      + "\n\nWill you agree to a"
-	      		      + " draw?",
-	       		      "Draw offer",
-	     	       	      JOptionPane.YES_NO_OPTION );
-	
-	if ( selected == JOptionPane.YES_OPTION ) {
-	    theDriver.endInDraw( player );
-	} else if ( selected == JOptionPane.NO_OPTION ) {
-	    theDriver.declineDraw( player );
-	} else {
-	    theDriver.declineDraw( player );
-	}
+		int selected = JOptionPane.showConfirmDialog( null, player.getName()
+			   	      + " has requested a draw."
+		       		      + "\n\nWill you agree to a"
+		      		      + " draw?",
+		       		      "Draw offer",
+		     	       	      JOptionPane.YES_NO_OPTION );
+		
+		if ( selected == JOptionPane.YES_OPTION ) {
+		    theDriver.endInDraw( player );
+		} else if ( selected == JOptionPane.NO_OPTION ) {
+		    theDriver.declineDraw( player );
+		} else {
+		    theDriver.declineDraw( player );
+		}
     }
     
     /**
-     *  Method is invoked if the other player declines a draw.
+     *  Invoked if other player declines a draw.
      */
     public void endInDeclineDraw( Player player ){
 	
@@ -80,8 +75,8 @@ public class LocalPlayer extends Player {
     }
     
     /**
-     * Method that is invoked when the end of game conditions have 
-     * been met.  Fire off an action event to tell the GUI to display 
+     * Invoked when the end of game conditions have been met.  
+     * Fire off an action event to tell the GUI to display 
      * endMessage in a dialogue box.  When the user clicks OK, call 
      * endGame in theDriver.
      *
@@ -89,14 +84,13 @@ public class LocalPlayer extends Player {
      */
     public void endOfGame( String endMessage ){
 	
-	JOptionPane.showMessageDialog( null,
-               "Game has ended because: "
-       	       + endMessage,
-       	       "Game Over",
-	       JOptionPane.INFORMATION_MESSAGE );
-	
-	System.exit( 0 );
-	
+		JOptionPane.showMessageDialog( null,
+	               "Game has ended because: "
+	       	       + endMessage,
+	       	       "Game Over",
+		       JOptionPane.INFORMATION_MESSAGE );
+		
+		System.exit( 0 );
     }
     
     /**
@@ -108,17 +102,12 @@ public class LocalPlayer extends Player {
      * @param endMessage  Message indicating the end of the game.
      */
     public void endInDraw( Player player ){
-	
-	// This display end of game dialog telling that a game has 
-	// ended in a draw
-	JOptionPane.showMessageDialog( null,
-       	       player.getName() + " accepted a draw."
-	       + "\n\nClick OK to end the program.",
-      	       "Game Over",
-               JOptionPane.INFORMATION_MESSAGE );
-	
-	System.exit( 0 );
-    }
-    
-}//LocalPlayer.java
-
+		JOptionPane.showMessageDialog( null,
+	       	       player.getName() + " accepted a draw."
+		       + "\n\nClick OK to end the program.",
+	      	       "Game Over",
+	               JOptionPane.INFORMATION_MESSAGE );
+		
+		System.exit( 0 );
+    } 
+}

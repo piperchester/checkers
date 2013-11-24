@@ -11,7 +11,6 @@
  *
  */
 
-import java.util.*;
 import java.io.*;
 
 /**
@@ -22,12 +21,12 @@ import java.io.*;
  */
 public class NetworkMove implements Serializable {
 
-    private int startingLocation;	// the starting location
-	private int endingLocation;  	// the ending location
+    private int startingLocation;	 
+	private int endingLocation;  
 
 	/**
 	 * Create a move with the starting location and
-	 * ending location passed in as paremeters.
+	 * ending location passed in as parameters.
 	 *
 	 * @param startLoc The starting point of the move
 	 * @param endLoc   The ending point of the move
@@ -38,7 +37,6 @@ public class NetworkMove implements Serializable {
 
         startingLocation = startLoc;
         endingLocation = endLoc;
-
     }
 
 	/**
@@ -50,7 +48,6 @@ public class NetworkMove implements Serializable {
 
     	startingLocation = aMove.startLocation();
  	    endingLocation = aMove.endLocation();
-
     }
 
 	/**
@@ -61,7 +58,6 @@ public class NetworkMove implements Serializable {
 	public void execute( NetworkPlayer parent ) {
 
 		parent.makeMove( startingLocation, endingLocation );
-
     }
 
 	/**
@@ -70,9 +66,7 @@ public class NetworkMove implements Serializable {
 	 * @return The starting point of the move.
  	 */
 	public int startLocation() {
-
 		return -1;
-
 	}
 
 
@@ -84,7 +78,6 @@ public class NetworkMove implements Serializable {
 	public int endLocation(){
 
 		return -1;
-
 	}
 
 	/**
@@ -97,8 +90,5 @@ public class NetworkMove implements Serializable {
 
         return ("Move.  startLoc = " + startingLocation + ", endLoc = "
                    + endingLocation);
-
     }
-
-
-} //NetworkMove.java
+}

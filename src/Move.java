@@ -11,9 +11,6 @@
  *
  */
 
-import java.util.*;
-import java.io.*;
-
 /**
  * An object representation of a move.
  *
@@ -21,18 +18,13 @@ import java.io.*;
  */
  public class Move {
 	 
-	private int startingLocation;	// the starting location
-	private int endingLocation;	// the ending location
-
-	/**
-	 *  The player that this move is intended for.
-	 */
-	public Player thePlayer;
+	private int startingLocation;
+	private int endingLocation;
+	public Player thePlayer; // player that this move is intended for
 
      
 	/**
-	 * Create a move with the starting location and 
-	 * ending location passed in as paremeters.
+	 * Create a move with the starting and ending locations.
 	 *	
 	 * @param startLoc The starting point of the move
 	 * @param endLoc   The ending point of the move
@@ -40,7 +32,6 @@ import java.io.*;
 	 * @pre startLoc and endLoc are valid locations
 	 */
 	public Move( Player player, int startLoc, int endLoc ) {
-	
 		thePlayer = player;
 		startingLocation = startLoc;
 		endingLocation = endLoc;
@@ -48,11 +39,9 @@ import java.io.*;
 
      
 	/**
-	 * Return the player who made this move
+	 * Return the player who made the move.
 	 * 
 	 * @return the player who made this move
-	 * 
-	 * @post nothing has changed 
 	 * 
 	 */
 	public Player getPlayer() {
@@ -64,11 +53,8 @@ import java.io.*;
 	 * Return the starting location of this move.
 	 *
 	 * @return The starting point of the move.
-	 * 
-	 * @post nothing has changed
  	 */
 	public int startLocation() {
-	
 		return startingLocation;
 	}
 
@@ -77,12 +63,8 @@ import java.io.*;
 	 * Return the ending location of this move.
 	 *
 	 * @return The ending point of this location.
-	 * 
-	 * @post Nothing has changed
 	 */
 	public int endLocation() {
-		
 		return endingLocation;
-	}
-     
-} //Move.java
+	}    
+}
