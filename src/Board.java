@@ -25,7 +25,7 @@ public class Board {
    private Piece pieces[]; // the pieces that are on the board
    public static int SINGLE = 0;
    public static int KING = 1;
-
+   final private int MAX_BOARD_SIZE = 64;
 
    /**
     * Creates a new board at the beginning of the game.
@@ -34,7 +34,7 @@ public class Board {
 	   // create a array of size 64, generate piece objects and
 	   // put them in the correct location in the array
 	   // Set the values of numWhites and numBlues to 12 each
-	   pieces = new Piece[64];
+	   pieces = new Piece[MAX_BOARD_SIZE];
 
 	   // create blue pices
 	   pieces[1] = new SinglePiece( Color.blue );
@@ -207,7 +207,7 @@ public class Board {
     * @return the size of the board, always 64
     */
    public int sizeOf() {
-       return 64;
+       return MAX_BOARD_SIZE;
    }
    
    /**
@@ -219,7 +219,7 @@ public class Board {
    
       Vector bluePieces = new Vector();
       
-      for ( int i = 0; i < 64; i++ ) {
+      for ( int i = 0; i < MAX_BOARD_SIZE; i++ ) {
           if ( occupied( i ) ) {
               if ( pieces[ i ].getColor() == Color.blue ) {
                   bluePieces.addElement( pieces[ i ] );
@@ -240,7 +240,7 @@ public class Board {
       
       Vector whitePieces = new Vector();
       
-      for ( int i = 0; i < 64; i++ ) {
+      for ( int i = 0; i < MAX_BOARD_SIZE; i++ ) {
           if ( occupied( i ) ) {
               if ( pieces[ i ].getColor() == Color.white ) {
                   whitePieces.addElement( pieces[ i ] );
