@@ -55,10 +55,8 @@ public class Facade extends Component {
      *                  with the Facade.
      */
     public Facade( Board newBoard, Driver newDriver ){
-	
-	theBoard = newBoard;
-	theDriver = newDriver;
-	
+    	theBoard = newBoard;
+    	theDriver = newDriver;
     }
     
     /**
@@ -70,12 +68,10 @@ public class Facade extends Component {
      * @pre game is in progress
      */
     public int whosTurn(){
+    	// Return the integer value of the activePlayer object
+    	int turn = activePlayer.getNumber();
 	
-	// Return the integer value of the activePlayer object
-	int turn;
-	turn = activePlayer.getNumber();
-	
-	return turn;
+    	return turn;
     }
     
     /**
@@ -85,12 +81,11 @@ public class Facade extends Component {
      * @param passive The passive player
      */
     public void setPlayerModes( Player active, Player passive ){
+    	activePlayer = active;
+    	passivePlayer = passive;
 	
-	activePlayer = active;
-	passivePlayer = passive;
-	
-	// Tell GUI to update
-	generateActionPerformed( update );
+    	// Tell GUI to update
+    	generateActionPerformed( update );
     }
     
     /**
@@ -107,27 +102,22 @@ public class Facade extends Component {
     public void selectSpace( int space ){  
 	
 	// When button is click, take info from the GUI
-	if( startSpace == 99 ){
+    	if( startSpace == 99 ){
 	    
 	    // Set startSpace to space
-	    startSpace = space;
+    		startSpace = space;
 	    
-	}else if( startSpace != 99 && endSpace == 99 ){
-	    if( space == startSpace ){
-		
-		// Viewed as un-selecting the space selected
-		// Set startSpace to predetermined unselected value
-		startSpace = 99;
-		
-	    }else{
-		// The endSpace will be set to space
-		endSpace = space;
-		makeLocalMove();
-	    }
-	}
+    	} else if( startSpace != 99 && endSpace == 99 ){
+    		if( space == startSpace ){
+    			// Viewed as un-selecting the space selected
+    			startSpace = 99; // Set startSpace to predetermined unselected value
+    		} else {
+    			endSpace = space;   // The endSpace will be set to space
+    			makeLocalMove();
+    		}
+    	}
 	
-	generateActionPerformed( "update" );   
-	
+    	generateActionPerformed( "update" );   
     }
     
     /**
@@ -139,17 +129,15 @@ public class Facade extends Component {
      */
     private void makeLocalMove(){
 	
-	//make sure startSpace and endSpace are defined
-	if( startSpace != 99 && endSpace!= 99 ){
-	    // Takes the information of a move and calls makeMove() 
-	    // in a localPlayer
-	    boolean result = activePlayer.makeMove( startSpace, endSpace );
-	}
-	
-	// Reset startSpace and endSpace to 99
-	startSpace = 99;
-	endSpace   = 99;
-	
+		//make sure startSpace and endSpace are defined
+		if( startSpace != 99 && endSpace!= 99 ){
+		    // Takes the information of a move and calls makeMove() in a localplayer
+		    boolean result = activePlayer.makeMove( startSpace, endSpace );
+		}
+		
+		// Reset startSpace and endSpace to 99
+		startSpace = 99;
+		endSpace   = 99;
     }
     
     /**
@@ -157,22 +145,18 @@ public class Facade extends Component {
      * or quit the program
      */
     public void pressQuit(){
-
-	// Alert players and the kernel that one person 
-	// has quit calls quitGame() for both players
-	theDriver.endInQuit( activePlayer );
-	
+		// Alert players and the kernel that one person 
+		// has quit calls quitGame() for both players
+		theDriver.endInQuit( activePlayer );
     }
     
     /**
      * Tell the kernel that the user has requested a draw.
      */
     public void pressDraw(){
-
-	// Alerts both players and the kernel that one person 
-	// has offered a draw calls offerDraw() on both players
-	activePlayer.offerDraw( activePlayer );
-
+		// Alerts both players and the kernel that one person 
+		// has offered a draw calls offerDraw() on both players
+		activePlayer.offerDraw( activePlayer );
     }
     
     /**
@@ -180,9 +164,7 @@ public class Facade extends Component {
      *
      */
     public void pressAcceptDraw(){
-	
-	//calls acceptDraw() in teh driver
-	theDriver.endInDraw( activePlayer );
+    	theDriver.endInDraw( activePlayer ); //calls acceptDraw() in the driver
     }
     
     /**
@@ -195,33 +177,29 @@ public class Facade extends Component {
      * @pre playerNum is a valid player number
      */
     public String getPlayerName( int playerNum ){
-	String retString = null;
-	
-	try{
-	    // Checks to see that playerNum is valid
-	    if( playerNum == 1 || playerNum == 2 ){
-		// checks both Player objects to see which one is 
-		// associated with the legal number returns the name of 
-                // the player asscociated with the number
-		if( activePlayer.getNumber() == playerNum ){
-		    retString = activePlayer.getName();
-		}else{
-		    retString = passivePlayer.getName();
+		String retString = null;
+		
+		try{
+		    // Checks to see that playerNum is valid
+		    if( playerNum == 1 || playerNum == 2 ){
+			// checks both Player objects to see which one is 
+			// associated with the legal number returns the name of 
+	        // the player asscociated with the number
+			if( activePlayer.getNumber() == playerNum ){
+			    retString = activePlayer.getName();
+			}else{
+			    retString = passivePlayer.getName();
+			}
+		    }		   
+		}catch( Exception e ){  // Throws exception on illegal player name
+		    System.out.println( e.getMessage() );
 		}
-	    }		   
-	}catch( Exception e ){
-	    
-	    System.out.println( e.getMessage() );
-	  
-	    // If playerNum is illegal an exception will be thrown
-	}
-
-	return retString;
+	
+		return retString;
     }
     
     /**
-     * Tell the kernel to associate the given name with the 
-     * given player number.
+     * Tell kernel to associate given name with given player number.
      *
      * @param playerNum the number of a player
      * @param name      the name that player should be given
@@ -229,12 +207,12 @@ public class Facade extends Component {
      * @pre playerNum is a valid player number
      */
     public void setPlayerName( int playerNum, String name ){
-	theDriver.setPlayerName( playerNum, name );
+    	theDriver.setPlayerName( playerNum, name );
     }
     
     
     /**
-     * Tell the kernel to set a time limit for each turn.  The time 
+     * Tell kernel to set a time limit for each turn.  The time 
      * limit, i.e. the amount of time a player has during his turn 
      * before he is given a time warning, is specified by the parameter 
      * called time, in minutes.
@@ -249,18 +227,18 @@ public class Facade extends Component {
      * @pre   10 <= time <= 300.
      */
     public void setTimer( int time, int warning ) throws Exception{
-	// Checks to see that time is in between the necessary frame
-	// Sets time(class variable) to time(param value)
-	if( ( time == -1 ) || ( ( time >= 10 || time <= 300 ) 
-				&& ( warning >= 10 || warning <= 300 ) ) ){
-	    
-	    timer       = time;
-	    warningTime = warning;
-	    theDriver.setTimer( time, warning );
-	
-	} else {
-	    throw new Exception( "Invalid timer settings" );
-	}	   
+		// Checks to see that time is in between the necessary frame
+		// Sets time(class variable) to time(param value)
+		if( ( time == -1 ) || ( ( time >= 10 || time <= 300 ) 
+					&& ( warning >= 10 || warning <= 300 ) ) ){
+		    
+		    timer       = time;
+		    warningTime = warning;
+		    theDriver.setTimer( time, warning );
+		
+		} else {
+		    throw new Exception( "Invalid timer settings" );
+		}	   
     }
     
     /**
@@ -272,15 +250,13 @@ public class Facade extends Component {
      * @pre   host != null
      */
     public void setHost( URL host ){
-	// Makes sure host isnt null
-	// Calls setHost() in driver
-	if( host != null ){
-	    theDriver.setHost( host );
-	}
+		if( host != null ){
+		    theDriver.setHost( host );
+		}
     }
     
     /**
-     * Display to local players that the game has ended with 
+     * Display to local players that game has ended with 
      * the message provided.
      * 
      * @param message
@@ -288,9 +264,7 @@ public class Facade extends Component {
      * @post the game ends
      */
     public void showEndGame( String message ){
-	//make sure game is over
-	//calls endGame in driver object
-	theDriver.endGame( message );
+    	theDriver.endGame( message );
     }
     
     /**
@@ -308,13 +282,13 @@ public class Facade extends Component {
 	// an exception will be thrown
        	if( mode == LOCALGAME || mode == HOSTGAME || mode == CLIENTGAME ){
 	    theDriver.setGameMode( mode );
-	}else {
-	    throw new Exception( "Invalid Game Mode" );
-	}
+       	} else {
+       		throw new Exception( "Invalid Game Mode" );
+       	}
     }
     
     /**
-     * Returns the timer value, how long each player get to take a turn
+     * Returns timer value: how long each player gets to take a turn.
      * 
      * @return the amount of time each player has for a turn 
      * 
@@ -322,15 +296,15 @@ public class Facade extends Component {
      * 
      */
     public int getTimer(){
-	int retval = 0;
+    	int retval = 0;
 
-	// Makes sure there is a timer for this game
-	if( timer != 999 ){
-	    retval = timer;
-	}
-
-	// Returns the timer value (clas variable: time )
-	return retval;
+		// Makes sure there is a timer for this game
+		if( timer != 999 ){
+		    retval = timer;
+		}
+	
+		// Returns the timer value (clas variable: time )
+		return retval;
     }
     
     /**
@@ -342,23 +316,21 @@ public class Facade extends Component {
      * @pre there has been a timer set for the current game  
      */
     public int getTimerWarning(){
-	int retval = -1;
-
-	// Makes sure there is a timer for this game
-	if( warningTime != 999 ){
-	    retval = warningTime;
-	}
-
-	// Returns the timer value (clas variable: warningTime )
-	return retval;
+		int retval = -1;
+	
+		// Makes sure there is a timer for this game
+		if( warningTime != 999 ){
+		    retval = warningTime;
+		}
+	
+		return retval;
     }
    
     /**
      * Adds an action listener to the facade
      */
     public void addActionListener( ActionListener a ){
-	actionListener = AWTEventMulticaster.add( actionListener, a );
-	//Adds an action listener to the facade
+    	actionListener = AWTEventMulticaster.add( actionListener, a );
     }
     
     /**
@@ -373,21 +345,21 @@ public class Facade extends Component {
     }
     
     /**
-     * Notifies everything of the sta eof the board
+     * Notifies everything of the state of the board
      * 
      * @return a Board object which is the state of the board
      * 
      */
     public Board stateOfBoard(){
-	// Return the board so GUI can go through and update itself
-	return theBoard;
+    	// Return the board so GUI can go through and update itself
+    	return theBoard;
     }
     
     /**
      * Call the driver and begin the game.
      */
     public void startGame(){
-	theDriver.startGame();
+    	theDriver.startGame();
     }
     
     /**
@@ -398,7 +370,7 @@ public class Facade extends Component {
 
 	if ( actionListener != null ) {
 	    actionListener.actionPerformed( 
-               new ActionEvent( this, ActionEvent.ACTION_PERFORMED, ID ) );
+        new ActionEvent( this, ActionEvent.ACTION_PERFORMED, ID ) );
 	    // Fires event associated with timer, or a move made on GUI
 	}
 
@@ -430,5 +402,4 @@ public class Facade extends Component {
 	    theDriver.createPlayer( num, Player.LOCALPLAYER, "UnNamedPlayer" );
 	}
     }
-
-}// Facade.java
+}
