@@ -28,15 +28,13 @@ public class Board {
    final private int MAX_BOARD_SIZE = 64;
 
    /**
-    * Creates a new board at the beginning of the game.
+    * Creates a new board at the beginning of the game. Generates 24 piece
+    * objects, 12 each color, and puts them in in the pieces array.
     */
    public Board() {
-	   // create a array of size 64, generate piece objects and
-	   // put them in the correct location in the array
-	   // Set the values of numWhites and numBlues to 12 each
 	   pieces = new Piece[MAX_BOARD_SIZE];
 
-	   // create blue pices
+	   // Blue piece creation.
 	   pieces[1] = new SinglePiece( Color.blue );
 	   pieces[3] = new SinglePiece( Color.blue );
 	   pieces[5] = new SinglePiece( Color.blue );
@@ -50,7 +48,7 @@ public class Board {
 	   pieces[21] = new SinglePiece( Color.blue );
 	   pieces[23] = new SinglePiece( Color.blue );
 
-	   // create the white pieces
+	   // White piece creation.
 	   pieces[40] = new SinglePiece( Color.white );
 	   pieces[42] = new SinglePiece( Color.white );
 	   pieces[44] = new SinglePiece( Color.white );
@@ -66,7 +64,7 @@ public class Board {
    }
 
    /**
-    * Move the piece at the start position to the end position
+    * Move the piece at the start position to the end position, if not occupied.
     * 
     * @param start - current location of the piece
     * @param end - the position where piece is moved
@@ -77,10 +75,6 @@ public class Board {
 	   
 	   int returnValue = 0;	
 
-	   // check if the end position of the piece is occupied
-	   // if not, set a start position in the array to null
-	   // put a piece object at the end position in the array
-	   // that was at the start positon before
 	   if( occupied( end ) ) {
 	   	   returnValue = -1;
 	   } else {
