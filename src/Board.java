@@ -69,20 +69,16 @@ public class Board {
     * @param start - current location of the piece
     * @param end - the position where piece is moved
     * 
-    * @return -1 if there is a piece in the end position
+    * @return -1 if there is a piece in the end position, 0 otherwise.
     */
    public int movePiece(int start, int end) {
-	   
-	   int returnValue = 0;	
-
 	   if( occupied( end ) ) {
-	   	   returnValue = -1;
+	   	   return -1;
 	   } else {
 		   pieces[end] = pieces[start];
 		   pieces[start] = null;
+		   return 0;
 	   }
-	   
-	   return returnValue;
    }
 
    /**
@@ -94,14 +90,7 @@ public class Board {
     * @return true if space is occupied, false otherwise
     */
    public boolean occupied(int space) {
-
-	   boolean returnValue = true;
-           
-	   if ( space >= 1 && space <= 63 && pieces[space] == null ) {
-	   	   returnValue = false;
-	   }
-	   
-	   return returnValue;  
+	   return ( space >= 1 && space <= 63 && pieces[space] == null ) ? false : true;
    }
 
    
@@ -135,15 +124,8 @@ public class Board {
     * 
     * @return the color of this piece if piece exists, else null.
     */
-   public Color colorAt(int space) {
-	 
-	   Color returnValue = null;
-	   
-	   if( occupied( space ) ) {
-		   returnValue = pieces[space].getColor(); 
-	   }
-   
-       return returnValue; 
+   public Color colorAt(int space) {   
+	   return occupied(space) ? pieces[space].getColor() : null;
    }
    
 
@@ -180,18 +162,14 @@ public class Board {
     * @return true if a piece of color left on the board, else false
     */
    public boolean hasPieceOf( Color color) {
-   	
-	   boolean returnValue = false;
-
 	   for( int i = 1; i < pieces.length; i++ ) {
-		   
 	   	   if( pieces[i] != null && pieces[i].getColor() == color ) {
-	   	   	   	   returnValue = true;
-	   	   	   	   i = pieces.length;
-	   	   	   }
+   	   	   	   i = pieces.length;
+   	   	   	   return true;
+	   	   } 
 	   }
-           
-      return returnValue; 
+	  
+	   return false;
    }
    
 
