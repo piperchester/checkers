@@ -17,9 +17,8 @@ import javax.swing.*;
 
 /**
  *
- * This class is a part of the main functionality of the checkers 
- * game. This class contains the main method to start the game, it 
- * creates all necessary classes as informaton is provided. Its 
+ * This class contains the main method to start the game, it 
+ * creates all necessary classes as information is provided. Its 
  * functions include knowing whose turn it is, remembering multiple 
  * jumps, relaying end of game conditions and ending the game.
  *
@@ -45,15 +44,10 @@ public class Driver {
      * Create the driver, which in turn creates the rest of 
      * the system.
      */
-    public Driver(){
-	// Create the board       
-	Board theBoard = new Board();
-	
-	// Create the rules passing in the board
-	theRules = new Rules( theBoard, this );
-	
-	// Create the facade and GUI
-	theFacade = new Facade( theBoard, this );	
+    public Driver(){    
+		Board theBoard = new Board();
+		theRules = new Rules( theBoard, this ); // Create the rules passing in the board
+		theFacade = new Facade( theBoard, this ); // Create the facade and GUI
     }
     
     /**
@@ -62,14 +56,14 @@ public class Driver {
      * @return A facade to talk to the GUI.
      */
     public Facade getFacade(){
-	return theFacade;
+    	return theFacade;
     }
     
     /**
-     * This method is called after a move has been checked. 
-     * Changes active player when a final succesful jump has 
+     * Called after a move has been checked. 
+     * Changes active player when a final successful jump has 
      * been made, resets the timer when appropriate, and tells 
-     * the appropriate player whos turn it is to make a move.
+     * the appropriate player whose turn it is to make a move.
      *
      * @param player The player whose turn it will now be
      * @param space  The space on the board from which a multiple 
@@ -79,58 +73,51 @@ public class Driver {
      * @post a player has been told to make a move
      */
     public void endTurn( Player player, int space ){
-
-	// Check to see if player passed in was the active player
-	// If player passed in was active player, check for multiple
-	// jump (space is none negative)
-	if ( activePlayer == player ){
-	    
-	    // Inform the player that the move was not valid,
-	    // or to make antoher jump
-	    if ( space < 0 ){
-		JOptionPane.showMessageDialog( null,
-	       	       activePlayer.getName() + " made an illegal move",
-      	       	       "Invalid Move", JOptionPane.INFORMATION_MESSAGE );
-	    } else {
-		JOptionPane.showMessageDialog( null,
-		       activePlayer.getName() + " please make" +
-       		       " another jump", "Multiple Jump Possible",
-		       JOptionPane.INFORMATION_MESSAGE );
-		
-		// Get the GUI to update
-		theFacade.setPlayerModes( activePlayer, passivePlayer );
-		
-		// If game is networked tell networked player to send 
-		// the move
-		if ( gameType == theFacade.HOSTGAME 
-		     || gameType == theFacade.CLIENTGAME ) {
-		    ( (NetworkPlayer) activePlayer ).sendMove();
-		}
-	    }
-	} else if ( passivePlayer == player ) {
-	    // If game is networked, tell networked player to send move
-	    if ( gameType == theFacade.HOSTGAME 
-		 || gameType == theFacade.CLIENTGAME ) {
-		((NetworkPlayer)activePlayer).sendMove();
-		((NetworkPlayer)activePlayer).waitForPlayer();
-	    }
-	    
-	    // Inform the other player to make a move and
-	    // tell facade to update any listining GUIs and
-	    // reset the timer
-	    
-	    Player tempHold = activePlayer;
-	    activePlayer    = passivePlayer;
-	    passivePlayer   = tempHold;
-	    
-	    theFacade.setPlayerModes( activePlayer, passivePlayer );
-	}
 	
+		// Check to see if player passed in was the active player
+		// If player passed in was active player, check for multiple
+		// jump (space is none negative)
+		if ( activePlayer == player ){
+		    
+		    // Inform the player that the move was not valid, or to make another jump
+		    if ( space < 0 ){
+			JOptionPane.showMessageDialog( null,
+		       	       activePlayer.getName() + " made an illegal move",
+	      	       	       "Invalid Move", JOptionPane.INFORMATION_MESSAGE );
+		    } else {
+			JOptionPane.showMessageDialog( null,
+			       activePlayer.getName() + " please make" +
+	       		       " another jump", "Multiple Jump Possible",
+			       JOptionPane.INFORMATION_MESSAGE );
+			
+			// Get the GUI to update
+			theFacade.setPlayerModes( activePlayer, passivePlayer );
+			
+			// If game is networked tell networked player to send the move
+			if ( gameType == theFacade.HOSTGAME || gameType == theFacade.CLIENTGAME ) {
+			    ( (NetworkPlayer) activePlayer ).sendMove();
+				}
+		    }
+		} else if ( passivePlayer == player ) {
+		    // If game is networked, tell networked player to send move
+		    if ( gameType == theFacade.HOSTGAME || gameType == theFacade.CLIENTGAME ) {
+				((NetworkPlayer)activePlayer).sendMove();
+				((NetworkPlayer)activePlayer).waitForPlayer();
+		    }
+		    
+		    // Inform the other player to make a move and
+		    // tell facade to update any listening GUIs and reset the timer
+		    
+		    Player tempHold = activePlayer;
+		    activePlayer    = passivePlayer;
+		    passivePlayer   = tempHold;
+		    
+		    theFacade.setPlayerModes( activePlayer, passivePlayer );
+		}
     }
     
     /**
-     * This method ends the checkers game due to whatever reason neccessary
-     * ie. a draw, someone quitting, or a victory.
+     * Ends the game due to a draw, someone quitting, or a victory.
      *
      * @param message  the message to send to all players regarding the 
      *                 reason for ending the game
@@ -141,18 +128,16 @@ public class Driver {
      *       to exit
      */
     public void endGame( String message ){
-	
-	// Call endOfGame on both players with the given message
-	playerOne.endOfGame( message );
-	playerTwo.endOfGame( message );
-	
-	// When players have acknowledged the end of game 
-	// call System.exit()
-	System.exit( 0 );
+		// Call endOfGame on both players with the given message
+		playerOne.endOfGame( message );
+		playerTwo.endOfGame( message );
+		
+		// When players have acknowledged the end of game 
+		System.exit( 0 );
     }
     
     /**
-     * This method creates the correct players for a game.
+     * Creates the correct players for a game.
      *
      * @param type the type of player to be created (0 - local, 1 - network)
      * @param name the name of the player
@@ -162,39 +147,40 @@ public class Driver {
      * @post  a player with correct name has been created  
      */
     public void createPlayer( int num, int type, String name ){
-	Player temp = null;
-
-	if ( type == Player.LOCALPLAYER ) {
-	    temp = new LocalPlayer( num, theRules, this );
-	    temp.setName( name );
-	} else if ( type == Player.NETWORKPLAYER ) {
-	    temp = new NetworkPlayer( num, theRules, this );
-	    temp.setName( name );
-	}
+		Player temp = null;
 	
-	if ( num == 1 ) {
-	    playerOne = temp;
-	} else {
-	    playerTwo = temp;
-	}
+		if ( type == Player.LOCALPLAYER ) {
+		    temp = new LocalPlayer( num, theRules, this );
+		    temp.setName( name );
+		} else if ( type == Player.NETWORKPLAYER ) {
+		    temp = new NetworkPlayer( num, theRules, this );
+		    temp.setName( name );
+		}
+		
+		// TODO: Ternary
+		if ( num == 1 ) {
+		    playerOne = temp;
+		} else {
+		    playerTwo = temp;
+		}
     }
     
     /**
-     * Set the name for the player using the passed in values.
+     * Set player name.
      * 
      * @param num  The player's number (1 or 2)
      * @param name The name to assign to the player.
      */
     public void setPlayerName( int num, String name ){
-	if ( num == 1 ) {
-	    playerOne.setName( name );
-	} else {
-	    playerTwo.setName( name );
-	}
+		if ( num == 1 ) {
+		    playerOne.setName( name );
+		} else {
+		    playerTwo.setName( name );
+		}
     }
     
     /** 
-     * Set the color for a player using the passed in value.
+     * Set player color.
      *
      * @param num   The player's number (1 or 2)
      * @param color The color to assign to the player.
@@ -208,53 +194,49 @@ public class Driver {
     }
     
     /**
-     * This method ends the game in a draw, alerting both players 
-     * that the draw has taken place
+     * Ends game in a draw, alerts both players that the draw has taken place
      *
      * @pre  both players have agreed to a draw
      * @post the game has ended and both players have been notified 
      *       of the draw
      */
     public void endInDraw( Player player ){
-   	// Calls endOfGame with a message that game ended in a draw.
-	endGame( player.getName() + "'s draw offer was accepted. \n\n"
-		 + "Game ended in a draw." );
+	   	// Calls endOfGame with a message that game ended in a draw.
+		endGame( player.getName() + "'s draw offer was accepted. \n\n"
+			 + "Game ended in a draw." );
     }
 
     /**
-     * This method is called if a draw has been offered
+     * Called if a draw has been offered.
      * 
      * @param the player who offered the draw
      * 
      */    
     public void drawOffered( Player player ){
-	
-	if( player.getNumber() == playerOne.getNumber() ){
-	    playerTwo.acceptDraw( player );
-	}else if( player.getNumber() == playerTwo.getNumber() ){
-	    playerOne.acceptDraw( player );
-	}
-	
+		if( player.getNumber() == playerOne.getNumber() ){
+		    playerTwo.acceptDraw( player );
+		}else if( player.getNumber() == playerTwo.getNumber() ){
+		    playerOne.acceptDraw( player );
+		}
     }
     
     /** 
      * The offer for a draw has been made.  This method declines
-     * that offer, meaning the game will continue.
+     * that offer, continuing the game.
      *
      * @param player The player declining the draw.
      */
     public void declineDraw( Player player ){
-	if ( gameType == theFacade.LOCALGAME ) {
-	    player.endInDeclineDraw( player );
-	} else {
-	    playerOne.endInDeclineDraw( player );
-	    playerTwo.endInDeclineDraw( player );
-	}
+		if ( gameType == theFacade.LOCALGAME ) {
+		    player.endInDeclineDraw( player );
+		} else {
+		    playerOne.endInDeclineDraw( player );
+		    playerTwo.endInDeclineDraw( player );
+		}
     }
     
     /**
-     * Ends the game as a result of a player quitting, notifying 
-     * each player
+     * Ends the game as a result of a player quitting, notifies each player.
      * 
      * @param the player who quit
      */
@@ -278,70 +260,64 @@ public class Driver {
      */
     public void setTimer( int time, int warning ){
    	// If values are negative, set runningTimer to false
-	// If they are positive values, create the Timer and 
-	// notifier with the times
-
-	if ( time < 0 ) {
-	    runningTimer = false;
-	} else {
-	    runningTimer = true;
-	    theTimer = new Timer();
-	}
-        
+	// If they are positive, create Timer and notifier with the times
+		if ( time < 0 ) {
+		    runningTimer = false;
+		} else {
+		    runningTimer = true;
+		    theTimer = new Timer();
+		}
     }
         
     /**
-     * This method sets the colors of pieces that each player 
-     * will be
+     * Sets piece colors for each player.
      *
      * @pre the game has been started, and there are 2 players
      * @post each player has their colors
      */
     private void selectColors(){
-   	// Randomly select color for each player and call the 
-	// setColor() method of each
-	if ( Math.random() > .5 ) {
-	    playerOne.setColor( Color.blue );
-	    playerTwo.setColor( Color.white );
-	} else {
-	    playerOne.setColor( Color.white );
-	    playerTwo.setColor( Color.blue );
-	}
+	   	// Randomly select color for each player and call the 
+		// setColor() method of each
+		if ( Math.random() > .5 ) {
+		    playerOne.setColor( Color.blue );
+		    playerTwo.setColor( Color.white );
+		} else {
+		    playerOne.setColor( Color.white );
+		    playerTwo.setColor( Color.blue );
+		}
     }
     
     /**
-     * This method will start the game play. Letting the first person 
-     * move their piece and so on
+     * Starts the game play. Lets first person move and so on.
      *
-     * @pre  There are 2 players to play, and all pregame conditions are 
-     *       in place
+     * @pre  There are 2 players to play, all pregame conditions are in place 
      * @post The first person is able to make their first move
      */
     public void startGame(){
-	selectColors();
-       
-	if ( gameType == theFacade.HOSTGAME ) {
-	    ( (NetworkPlayer)playerTwo).waitForConnect();
-	    //( (NetworkPlayer)playerTwo).waitForConnect();
-	} else if ( gameType == theFacade.CLIENTGAME ) {
-	    //( (NetworkPlayer)playerOne).connectToHost();
-	    ( (NetworkPlayer)playerOne).connectToHost();
-	}
-	
-	// Tell player with the correct color to make a move
-	if ( playerOne.getColor() == Color.white ) {
-	    activePlayer  = playerOne;
-	    passivePlayer = playerTwo;
-	} else {
-	    activePlayer  = playerTwo;
-	    passivePlayer = playerOne;
-	}
-	
-	theFacade.setPlayerModes( activePlayer, passivePlayer );
+		selectColors();
+	       
+		if ( gameType == theFacade.HOSTGAME ) {
+		    ( (NetworkPlayer)playerTwo).waitForConnect();
+		    //( (NetworkPlayer)playerTwo).waitForConnect();
+		} else if ( gameType == theFacade.CLIENTGAME ) {
+		    //( (NetworkPlayer)playerOne).connectToHost();
+		    ( (NetworkPlayer)playerOne).connectToHost();
+		}
+		
+		// Tell player with the correct color to make a move
+		if ( playerOne.getColor() == Color.white ) {
+		    activePlayer  = playerOne;
+		    passivePlayer = playerTwo;
+		} else {
+		    activePlayer  = playerTwo;
+		    passivePlayer = playerOne;
+		}
+		
+		theFacade.setPlayerModes( activePlayer, passivePlayer );
     }
     
     /**
-     * This method sets the host the player will play against in case of 
+     * Sets the host player will play against in case of 
      * a game over a network.
      *
      * @param  host the host of the game to be played
@@ -352,13 +328,13 @@ public class Driver {
      * @post The players are connected to play
      */
     public void setHost( URL host ){
-   	// Call connectToHost in player two with the URL
-	((NetworkPlayer)playerOne).setHost( host );
-	((NetworkPlayer)playerTwo).setHost( host );
+	   	// Call connectToHost in player two with the URL
+		((NetworkPlayer)playerOne).setHost( host );
+		((NetworkPlayer)playerTwo).setHost( host );
     }
     
     /**
-     * Return the player whos turn it is not
+     * Return the player whose turn it is not.
      *
      * @return the player whose turn it is not
      *
@@ -366,8 +342,7 @@ public class Driver {
      * @post this method has not altered anything
      */
     public Player getOppositePlayer(){
-   	// Returns the player whos getTurnStatus is false
-   	return passivePlayer;
+    	return passivePlayer;    	// player whos getTurnStatus is false
     }
     
     /**
@@ -380,12 +355,12 @@ public class Driver {
      * @post this method has not altered anything
      */
     public boolean timerRunning(){
-   	return runningTimer;
+    	return runningTimer;
     }
     
    
     /**
-     * Select the type of game
+     * Select the game type.
      *
      * @param mode the mode (0 local, 1 host, 2 client) of the game
      *
@@ -393,12 +368,12 @@ public class Driver {
      * @post Mode is set
      */
     public void setGameMode( int newMode ){
-	// Set the value of mode
-	gameType = newMode;
+		// Set the value of mode
+		gameType = newMode;
     }
     
     /**
-     * Return the integer representing the type of game
+     * Return the integer representing the type of game.
      *
      * @return the type of game
      *
@@ -406,7 +381,7 @@ public class Driver {
      * @post This method has changed nothing
      */
     public int getGameMode(){
-   	return gameType;
+    	return gameType;
     }
     
     /**
@@ -418,15 +393,13 @@ public class Driver {
      * @post This method has changed nothing
      */
     public Notifier getTimerNotifier(){
-   	// Return the timers notifier, by asking the timer 
-	// for its notifier
-	Notifier timer = null;
-	
-	if ( theTimer != null ) {
-	    timer = theTimer.getNotifier();
-	}
-	
-	return timer;
-    }
-    
-}//Driver.java
+	   	// Return the timers notifier, by asking the timer for its notifier
+		Notifier timer = null;
+		
+		if ( theTimer != null ) {
+		    timer = theTimer.getNotifier();
+		}
+		
+		return timer;
+    }   
+}
