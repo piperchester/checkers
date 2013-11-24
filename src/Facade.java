@@ -13,7 +13,6 @@
 
 import java.awt.*;
 import java.awt.event.*;
-import javax.swing.*;
 import java.net.*;
 
 /**
@@ -28,7 +27,7 @@ public class Facade extends Component {
     public static int HOSTGAME   = 20000;
     public static int CLIENTGAME = 30000;
 
-    public static String update       = "update";
+    public static String UPDATE       = "update";
     public static String playerSwitch = "switch";
     public static String ID           = "facade";
     
@@ -65,13 +64,9 @@ public class Facade extends Component {
      *
      * @return int   The number of the player whose turn it is.
      * 
-     * @pre game is in progress
      */
     public int whosTurn(){
-    	// Return the integer value of the activePlayer object
-    	int turn = activePlayer.getNumber();
-	
-    	return turn;
+    	return activePlayer.getNumber();
     }
     
     /**
@@ -84,8 +79,9 @@ public class Facade extends Component {
     	activePlayer = active;
     	passivePlayer = passive;
 	
-    	// Tell GUI to update
-    	generateActionPerformed( update );
+		if ( actionListener != null ) {
+		    actionListener.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, UPDATE));
+		}
     }
     
     /**
@@ -101,23 +97,22 @@ public class Facade extends Component {
      */
     public void selectSpace( int space ){  
 	
-	// When button is click, take info from the GUI
+	// When button is clicked, take info from the GUI
     	if( startSpace == 99 ){
-	    
-	    // Set startSpace to space
     		startSpace = space;
-	    
     	} else if( startSpace != 99 && endSpace == 99 ){
     		if( space == startSpace ){
     			// Viewed as un-selecting the space selected
     			startSpace = 99; // Set startSpace to predetermined unselected value
     		} else {
-    			endSpace = space;   // The endSpace will be set to space
+    			endSpace = space;
     			makeLocalMove();
     		}
     	}
 	
-    	generateActionPerformed( "update" );   
+		if ( actionListener != null ) {
+		    actionListener.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, UPDATE));
+		}  
     }
     
     /**
@@ -142,20 +137,19 @@ public class Facade extends Component {
     
     /**
      * Tell the kernel that the user has quit/resigned the game 
-     * or quit the program
+     * or quit the program. Alerts players and the kernel that
+     * one person has quit calls quitGame() for both players.
      */
     public void pressQuit(){
-		// Alert players and the kernel that one person 
-		// has quit calls quitGame() for both players
 		theDriver.endInQuit( activePlayer );
     }
     
     /**
-     * Tell the kernel that the user has requested a draw.
+     * Tell the kernel that the user has requested a draw. Alerts both
+     * players and the kernel that one person has offered a draw and
+     * class offerDraw() on both players.
      */
     public void pressDraw(){
-		// Alerts both players and the kernel that one person 
-		// has offered a draw calls offerDraw() on both players
 		activePlayer.offerDraw( activePlayer );
     }
     
@@ -164,7 +158,7 @@ public class Facade extends Component {
      *
      */
     public void pressAcceptDraw(){
-    	theDriver.endInDraw( activePlayer ); //calls acceptDraw() in the driver
+    	theDriver.endInDraw( activePlayer );
     }
     
     /**
@@ -177,25 +171,20 @@ public class Facade extends Component {
      * @pre playerNum is a valid player number
      */
     public String getPlayerName( int playerNum ){
-		String retString = null;
-		
 		try{
 		    // Checks to see that playerNum is valid
 		    if( playerNum == 1 || playerNum == 2 ){
-			// checks both Player objects to see which one is 
-			// associated with the legal number returns the name of 
-	        // the player asscociated with the number
-			if( activePlayer.getNumber() == playerNum ){
-			    retString = activePlayer.getName();
-			}else{
-			    retString = passivePlayer.getName();
-			}
+				if( activePlayer.getNumber() == playerNum ){
+				    return activePlayer.getName();
+				}else{
+				    return passivePlayer.getName();
+				}
 		    }		   
 		}catch( Exception e ){  // Throws exception on illegal player name
 		    System.out.println( e.getMessage() );
 		}
-	
-		return retString;
+		
+		return null;
     }
     
     /**
@@ -216,11 +205,6 @@ public class Facade extends Component {
      * limit, i.e. the amount of time a player has during his turn 
      * before he is given a time warning, is specified by the parameter 
      * called time, in minutes.
-     *
-     * Tell the kernel to set a time limit for each turn.   The warning 
-     * time, i.e. the amount of time a player has during his turn after 
-     * he is given a time warning, is specified by the parameter called 
-     * time, in minutes.
      * 
      * @param time the time limit for each turn, in seconds.
      *
@@ -242,12 +226,11 @@ public class Facade extends Component {
     }
     
     /**
-     * Tell the kernel to connect to the specified host to 
-     * start a network game.
+     * Tell the kernel to connect to the specified host to start a network game.
      *
      * @param host
      *
-     * @pre   host != null
+     * @pre   host is not null
      */
     public void setHost( URL host ){
 		if( host != null ){
@@ -268,7 +251,8 @@ public class Facade extends Component {
     }
     
     /**
-     * Set the game mode: a local game or a network game
+     * Set the game mode: a local game or a network game by calling
+     * the Driver's setGameMode. 
      * 
      * @param the mode of the game
      * 
@@ -276,12 +260,8 @@ public class Facade extends Component {
      * 
      */
     public void setGameMode( int mode ) throws Exception{
-	// Check to make sure that mode is a legal value
-	// Call setGameMode() in driver class passing it 
-	// the legal mode.  If mode is not a legal value 
-	// an exception will be thrown
        	if( mode == LOCALGAME || mode == HOSTGAME || mode == CLIENTGAME ){
-	    theDriver.setGameMode( mode );
+       		theDriver.setGameMode( mode );
        	} else {
        		throw new Exception( "Invalid Game Mode" );
        	}
@@ -296,15 +276,7 @@ public class Facade extends Component {
      * 
      */
     public int getTimer(){
-    	int retval = 0;
-
-		// Makes sure there is a timer for this game
-		if( timer != 999 ){
-		    retval = timer;
-		}
-	
-		// Returns the timer value (clas variable: time )
-		return retval;
+    	return timer != 999 ? timer : 0;
     }
     
     /**
@@ -316,14 +288,7 @@ public class Facade extends Component {
      * @pre there has been a timer set for the current game  
      */
     public int getTimerWarning(){
-		int retval = -1;
-	
-		// Makes sure there is a timer for this game
-		if( warningTime != 999 ){
-		    retval = warningTime;
-		}
-	
-		return retval;
+    	return warningTime != 999 ? warningTime : -1;
     }
    
     /**
@@ -334,24 +299,12 @@ public class Facade extends Component {
     }
     
     /**
-     * Called when both players have clicked OK on the end game dialog box
-     * 
-     * @post the game has ended 
-     */
-    public void endGameAccepted(){
-	
-	//waits until both players have accepted the end of the game 
-	//end the game
-    }
-    
-    /**
-     * Notifies everything of the state of the board
+     * Returns the board so GUI can go through and update itself.
      * 
      * @return a Board object which is the state of the board
      * 
      */
     public Board stateOfBoard(){
-    	// Return the board so GUI can go through and update itself
     	return theBoard;
     }
     
@@ -363,29 +316,24 @@ public class Facade extends Component {
     }
     
     /**
-     * Generates an action. This is inhereted from Component
+     * Generates an action. This is inhereted from Component. 
+     * Fires event associated with timer, or a move made on GUI.
      * 
      */    
     public void generateActionPerformed(){
-
-	if ( actionListener != null ) {
-	    actionListener.actionPerformed( 
-        new ActionEvent( this, ActionEvent.ACTION_PERFORMED, ID ) );
-	    // Fires event associated with timer, or a move made on GUI
-	}
-
+		if ( actionListener != null ) {
+		    actionListener.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, ID));
+		}
     }
     
     /**
-     * Generates an action. This is inhereted from Componen
+     * Generates an action. Inherited from component. Fires an event
+     * associated with timer, or move made on GUI.
      */    
     private void generateActionPerformed( String command ){
-	
-	if ( actionListener != null ) {
-	    actionListener.actionPerformed( 
-              new ActionEvent( this, ActionEvent.ACTION_PERFORMED, command ) );
-	    // Fires an event associated with timer, or move made on GUI
-	}
+		if ( actionListener != null ) {
+		    actionListener.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, command));
+		}
     }
     
     /**
@@ -395,11 +343,10 @@ public class Facade extends Component {
      * @param type Int for type of player (Local, network, etc.)
      */
     public void createPlayer( int num, int type ) {
-
-	if ( type == HOSTGAME || type == CLIENTGAME ) {
-	    theDriver.createPlayer( num, Player.NETWORKPLAYER, "UnNamedPlayer" );
-	} else {
-	    theDriver.createPlayer( num, Player.LOCALPLAYER, "UnNamedPlayer" );
-	}
+		if ( type == HOSTGAME || type == CLIENTGAME ) {
+		    theDriver.createPlayer( num, Player.NETWORKPLAYER, "UnNamedPlayer" );
+		} else {
+		    theDriver.createPlayer( num, Player.LOCALPLAYER, "UnNamedPlayer" );
+		}
     }
 }
