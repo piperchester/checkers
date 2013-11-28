@@ -14,7 +14,7 @@ import java.awt.*;
 
 /**
  * Represents a king piece.
- *
+ * TEST COMMIT FOR CHUCK
  */
 public class KingPiece extends Piece {
    private static int KING = 1;
