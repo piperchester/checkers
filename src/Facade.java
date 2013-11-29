@@ -130,15 +130,6 @@ public class Facade extends Component {
     
     
     /**
-     * Tell the kernel that the user has requested a draw. Alerts both
-     * players and the kernel that one person has offered a draw and
-     * class offerDraw() on both players.
-     */
-    public void pressDraw(){
-	//	activePlayer.offerDraw( activePlayer );
-    }
-    
-    /**
      * Given a player number, returns the name associated 
      * with that number.
      * 
