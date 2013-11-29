@@ -1203,8 +1203,11 @@ public class CheckerGUI extends JFrame implements ActionListener{
 		
 		//if draw is pressed
 	    }else if( e.getActionCommand().equals( "draw" ) ){
-		//does sequence of events for a draw
-		theFacade.pressDraw();
+			//does sequence of events for a draw
+//			 theFacade.pressDraw();
+		    	
+	    	invoker.invokeCommand(new DrawCommand(this));
+		    	
 		
 		//if resign is pressed
 	    } else if(e.getActionCommand().equals("resign" )) {
