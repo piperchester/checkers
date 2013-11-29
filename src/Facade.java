@@ -315,27 +315,6 @@ public class Facade extends Component {
     }
     
     /**
-     * Generates an action. This is inhereted from Component. 
-     * Fires event associated with timer, or a move made on GUI.
-     * 
-     */    
-    public void generateActionPerformed(){
-		if ( actionListener != null ) {
-		    actionListener.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, ID));
-		}
-    }
-    
-    /**
-     * Generates an action. Inherited from component. Fires an event
-     * associated with timer, or move made on GUI.
-     */    
-    private void generateActionPerformed( String command ){
-		if ( actionListener != null ) {
-		    actionListener.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, command));
-		}
-    }
-    
-    /**
      * Create a player with the given type and player number.
      *
      * @param num  Int for player number (either 1 or 2)
