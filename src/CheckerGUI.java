@@ -150,8 +150,14 @@ public class CheckerGUI extends JFrame implements ActionListener{
         playerTwosName = nameTwo;
         theFacade = facade;
 
+
         this.mediator = mediator;
         register();
+    try{
+        	theFacade.addActionListener(this);
+        } catch( Exception e ){
+            System.err.println( e.getMessage() );
+        }
 
         
         try{
@@ -1204,6 +1210,7 @@ public class CheckerGUI extends JFrame implements ActionListener{
 		
 	    } else if(e.getActionCommand().equals("draw")){
 	    	invoker.invokeCommand(new DrawCommand(this));
+
 	    } else if(e.getActionCommand().equals("resign" )) {
 	    	// OLD: theFacade.pressQuit();
 	    	
@@ -1214,7 +1221,8 @@ public class CheckerGUI extends JFrame implements ActionListener{
 	    }else if( e.getSource().equals( theFacade ) ) {
 
 	    	invoker.invokeCommand(new QuitCommand(this, mediator));	
-
+	    } else if(e.getActionCommand().equals("resign" )) {
+	    	invoker.invokeCommand(new QuitCommand(this, mediator));	
 		
 	    //if the source came from the facade
 	    }else if( e.getSource().equals( theFacade ) ) {
