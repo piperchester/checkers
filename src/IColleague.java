@@ -7,6 +7,8 @@
 public interface IColleague {
 	
     void SendMessage(IMediator mediator, String message);
+    
+    void requestPlayerName(IMediator mediator);
 
     void ReceiveMessage(String message);
 }

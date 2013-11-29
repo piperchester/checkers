@@ -256,6 +256,8 @@ public class Driver {
 		}
     	mediator.Register(playerOne);
     	mediator.Register(playerTwo);
+    	mediator.Register(activePlayer);
+    	mediator.setActivePlayer(activePlayer);
     	playerOne.SendMessage(mediator, "test");
 	
 		

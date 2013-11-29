@@ -174,5 +174,11 @@ public class Player implements IColleague {
 		System.out.println(this.getName() + " received " + message);
 		
 	}
+
+	@Override
+	public void requestPlayerName(IMediator mediator) {
+		// TODO Auto-generated method stub
+		
+	}
     
 }//Player.java

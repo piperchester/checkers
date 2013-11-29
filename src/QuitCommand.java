@@ -8,9 +8,11 @@ import javax.swing.JOptionPane;
  * 
  * @author piperchester
  */
-public class QuitCommand implements ICommand {
+public class QuitCommand implements ICommand, IColleague {
 
 	private CheckerGUI receiver;
+	private String pName;
+	private IMediator mediator;
 	
 	/**
 	 * Single Arg constructor provides the receiver for the command
@@ -26,12 +28,32 @@ public class QuitCommand implements ICommand {
 	@Override
 	public void execute() {
 		
-		JOptionPane.showMessageDialog( null, "Game has ended because: TEST " /* player name */, "Game Over", 
+		//mediator.Register(this);
+		//this.requestPlayerName(mediator);
+		
+		JOptionPane.showMessageDialog( null, "Game has ended because: TEST " + pName, "Game Over", 
 				JOptionPane.INFORMATION_MESSAGE );
 		
 		System.exit(0);
 
 		// Update the receiver with the new values if need be
-		// receiver.setImageIndexing(interval, index);
+		//r receiver.setImageIndexing(interval, index);
+	}
+
+	@Override
+	public void SendMessage(IMediator mediator, String message) {
+		mediator.DistributeMessage(this, message);
+		
+	}
+
+	@Override
+	public void requestPlayerName(IMediator mediator) {
+		mediator.sendPlayerName(this);
+		
+	}
+
+	@Override
+	public void ReceiveMessage(String message) {
+		pName = message;
 	}
 }
