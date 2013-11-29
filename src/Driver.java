@@ -297,10 +297,9 @@ public class Driver {
 		    passivePlayer = playerOne;
 		}
     	mediator.Register(playerOne);
-    	playerOne.SendMessage(mediator, "test");
     	mediator.Register(playerTwo);
-    	mediator.Register(activePlayer);
-    	mediator.Register(passivePlayer);	
+    	playerOne.SendMessage(mediator, "test");
+	
 		
 		theFacade.setPlayerModes( activePlayer, passivePlayer );
     }

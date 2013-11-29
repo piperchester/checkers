@@ -237,7 +237,6 @@ public class Player implements IColleague {
 
 	@Override
 	public void SendMessage(IMediator mediator, String message) {
-		System.out.println("sent");
 		mediator.DistributeMessage(this, message);
 		
 	}
