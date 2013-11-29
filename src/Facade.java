@@ -153,14 +153,6 @@ public class Facade extends Component {
     }
     
     /**
-     * Tell the kernel that the user has accepted a draw.
-     *
-     */
-    public void pressAcceptDraw(){
-    	theDriver.endInDraw( activePlayer );
-    }
-    
-    /**
      * Given a player number, returns the name associated 
      * with that number.
      * 
