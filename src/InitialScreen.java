@@ -25,7 +25,7 @@ import javax.swing.event.*;
  * @author
  * 
  */
-public class Secondscreen extends JFrame
+public class InitialScreen extends JFrame
     implements ActionListener, ChangeListener {
     
     private Facade theFacade;
@@ -49,9 +49,9 @@ public class Secondscreen extends JFrame
      *@param f the facade getting passed to to set options
      *@param type the type of game 
      */
-    public Secondscreen( Facade f, IMediator mediator ) {
+    public InitialScreen( Facade f, IMediator mediator ) {
 
-        super( "Second Screen" );
+        super( "Initial Player Setup" );
         theFacade = f;
         //gameType = type;
         this.mediator = mediator;
