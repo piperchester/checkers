@@ -145,12 +145,10 @@ public class Firstscreen extends JFrame implements ActionListener{
 			//set up a local game
 			theFacade.setGameMode( theFacade.LOCALGAME );
 			
-			theFacade.createPlayer( 1, theFacade.LOCALGAME );
-			theFacade.createPlayer( 2, theFacade.LOCALGAME );
 			
 			//hide the Firstscreen, make a Secondscreen and show it
 			this.hide();
-			next = new Secondscreen( theFacade, this, theFacade.LOCALGAME, mediator );
+			//next = new Secondscreen( theFacade, this, theFacade.LOCALGAME, mediator );
 			next.show();
 			
 			//if the host game button is selected

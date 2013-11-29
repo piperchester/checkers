@@ -58,12 +58,12 @@ public class Secondscreen extends JFrame
      * 
      */
     
-    public Secondscreen( Facade f, Firstscreen first, int type, IMediator mediator ) {
+    public Secondscreen( Facade f, IMediator mediator ) {
 
         super( "Second Screen" );
         theFacade = f;
-        theFirst = first;
-        gameType = type;
+        //theFirst = first;
+        //gameType = type;
         this.mediator = mediator;
         initComponents ();
         pack ();
@@ -228,22 +228,7 @@ public class Secondscreen extends JFrame
         gridBagConstraints1.gridy = 8;
         getContentPane().add(warningLengthField, gridBagConstraints1);
        
-	//determine what components should be disabled
-	//depending on the game mode
-	if ( gameType == theFacade.LOCALGAME ) {
-	} else if ( gameType == theFacade.HOSTGAME ) {
-	    playerTwoLabel.setEnabled( false );
-	    playerTwoField.setEnabled( false );
-	} else if ( gameType == theFacade.CLIENTGAME ) {
-	    playerOneLabel.setEnabled( false );
-	    playerOneField.setEnabled( false );
-	    
-	    timedGameBox.setEnabled( false );
-	    turnLengthLabel.setEnabled( false );
-	    WarningLengthLabel.setEnabled( false );
-	    turnLengthField.setEnabled( false );
-	    warningLengthField.setEnabled( false );
-	}
+	
     }
     
     /*

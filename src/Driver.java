@@ -49,6 +49,8 @@ public class Driver {
 		Board theBoard = new Board();
 		theRules = new Rules( theBoard, this ); // Create the rules passing in the board
 		theFacade = new Facade( theBoard, this ); // Create the facade and GUI
+		theFacade.createPlayer( 1, theFacade.LOCALGAME );
+		theFacade.createPlayer( 2, theFacade.LOCALGAME );
     }
     
     /**
