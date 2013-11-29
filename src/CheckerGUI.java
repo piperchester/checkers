@@ -16,6 +16,7 @@
  */
 
 import javax.swing.*;
+
 import java.awt.event.*;
 import java.awt.*;
 import java.util.*;
@@ -147,7 +148,12 @@ public class CheckerGUI extends JFrame implements ActionListener{
         playerOnesName = nameOne;
         playerTwosName = nameTwo;
         theFacade = facade;
-        register();
+        
+        try{
+        	theFacade.addActionListener(this);
+        } catch( Exception e ){
+            System.err.println( e.getMessage() );
+        }
         
         initComponents ();
         pack ();
@@ -157,19 +163,10 @@ public class CheckerGUI extends JFrame implements ActionListener{
     
     
     /*
-     * This method handles setting up the timer
+     * Tries to add an actionListener to the GUI.
      */
-    
     private void register() {
-	
-        try{
-	    theFacade.addActionListener( this );
-	  
-        }catch( Exception e ){
-            
-            System.err.println( e.getMessage() );
-         
-        }
+
     }
     
     /**
