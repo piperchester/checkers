@@ -1145,15 +1145,13 @@ public class CheckerGUI extends JFrame implements ActionListener{
     }
     
     /** 
-     * 
      * Exit the Application
-     * 
      * @param the window event
-     * 
      */
     private void exitForm(java.awt.event.WindowEvent evt) {
-        theFacade.pressQuit();
-        
+        // OLD: theFacade.pressQuit();
+    	System.out.println("Testing");
+    	invoker.invokeCommand(new QuitCommand(this));
     }
 
     /**
@@ -1210,9 +1208,7 @@ public class CheckerGUI extends JFrame implements ActionListener{
 		
 		//if resign is pressed
 	    } else if(e.getActionCommand().equals("resign" )) {
-	    
-	    	
-	    	// Original: theFacade.pressQuit();
+	    	// OLD: theFacade.pressQuit();
 	    	
 	    	// Call invoker to execute from QuitCommand
 	    	invoker.invokeCommand(new QuitCommand(this));	
@@ -1365,7 +1361,8 @@ public class CheckerGUI extends JFrame implements ActionListener{
 				timeRemaining = theFacade.getTimerWarning();
 				warningLabel.setText( "Time is running out!!!" );
 		    } else if (timeRemaining <= 0 && !(warningLabel.getText()).equals( "" )) {
-		    	theFacade.pressQuit();    
+		    	// OlD: theFacade.pressQuit();
+		    	invoker.invokeCommand(new QuitCommand(this));
 		    } else {
 		    	timeRemaining--;
 		    }
