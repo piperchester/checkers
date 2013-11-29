@@ -37,6 +37,7 @@ public class Driver {
     private Timer   theTimer;
     private Facade  theFacade;
     private Rules   theRules;
+    private IMediator mediator = new GameplayMediator();
     
     /**
      * Constructor
@@ -108,6 +109,8 @@ public class Driver {
 		    }
 		
     }
+    
+
     
     /**
      * Ends the game due to a draw, someone quitting, or a victory.
@@ -293,6 +296,11 @@ public class Driver {
 		    activePlayer  = playerTwo;
 		    passivePlayer = playerOne;
 		}
+    	mediator.Register(playerOne);
+    	playerOne.SendMessage(mediator, "test");
+    	mediator.Register(playerTwo);
+    	mediator.Register(activePlayer);
+    	mediator.Register(passivePlayer);	
 		
 		theFacade.setPlayerModes( activePlayer, passivePlayer );
     }
