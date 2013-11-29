@@ -25,7 +25,6 @@ class PlayCheckers{
 	*/
     public static void main( String args[] ){
 		Driver theDriver = new Driver();
-		Firstscreen first = new Firstscreen( theDriver.getFacade(), theDriver.getMediator() );
 		Secondscreen second = new Secondscreen(theDriver.getFacade(),  theDriver.getMediator());
 		second.show(); // Piper - Deprecated.
     }   

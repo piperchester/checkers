@@ -29,10 +29,8 @@ public class Secondscreen extends JFrame
     implements ActionListener, ChangeListener {
     
     private Facade theFacade;
-    private Firstscreen theFirst;
     private int gameType;
     
-    // Variables declaration
     private Checkbox timedGameBox;
     private JLabel playerOneLabel;
     private JLabel playerTwoLabel;
@@ -45,24 +43,16 @@ public class Secondscreen extends JFrame
     private JSlider turnLengthField;
     private JSlider warningLengthField;
     private IMediator mediator;
-    // End of variables declaration
-	
 	
     /**
-     * 
      * Creates new Secondscreen 
-     *
      *@param f the facade getting passed to to set options
-     *@param first the Firstscreen object that ceated this window
      *@param type the type of game 
-     * 
      */
-    
     public Secondscreen( Facade f, IMediator mediator ) {
 
         super( "Second Screen" );
         theFacade = f;
-        //theFirst = first;
         //gameType = type;
         this.mediator = mediator;
         initComponents ();
@@ -74,7 +64,6 @@ public class Secondscreen extends JFrame
      * This method is called from within the constructor to
      * initialize the form.
      */
-	
     private void initComponents() {
 
         timedGameBox = new Checkbox();
@@ -113,7 +102,6 @@ public class Secondscreen extends JFrame
         gridBagConstraints1.anchor = GridBagConstraints.WEST;
         getContentPane().add(timedGameBox, gridBagConstraints1);
 
-	
         playerOneLabel.setName("playerOneLabel");
         playerOneLabel.setBackground(new Color (204, 204, 204));
         playerOneLabel.setForeground(Color.black);
@@ -227,8 +215,6 @@ public class Secondscreen extends JFrame
         gridBagConstraints1.gridx = 1;
         gridBagConstraints1.gridy = 8;
         getContentPane().add(warningLengthField, gridBagConstraints1);
-       
-	
     }
     
     /*
@@ -256,8 +242,7 @@ public class Secondscreen extends JFrame
      * action command of all components and then deicde what needs to be done.
      * 
      * @param the event fired
-     */
-    
+     */    
     public void actionPerformed( ActionEvent e ){
 	try{
 	    
@@ -317,7 +302,6 @@ public class Secondscreen extends JFrame
 		//if they hit cancel go to the previous screen
 	    } else if( e.getActionCommand().equals( "cancel" ) ) {
 		this.hide();
-		theFirst.show();
 		
 		//handle whether or not a timer is desired
 	    } else if ( e.getSource() instanceof Checkbox ) {
