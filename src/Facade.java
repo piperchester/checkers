@@ -128,14 +128,6 @@ public class Facade extends Component {
 		endSpace   = 99;
     }
     
-    /**
-     * Tell the kernel that the user has quit/resigned the game 
-     * or quit the program. Alerts players and the kernel that
-     * one person has quit calls quitGame() for both players.
-     */
-    public void pressQuit(){
-		theDriver.endInQuit( activePlayer );
-    }
     
     /**
      * Tell the kernel that the user has requested a draw. Alerts both

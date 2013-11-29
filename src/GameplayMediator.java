@@ -1,6 +1,10 @@
 import java.util.ArrayList;
 
-
+/**
+ * The concrete mediator, contains all of the functionality needed
+ * @author Chuck
+ *
+ */
 
 public class GameplayMediator implements IMediator {
 
@@ -9,19 +13,18 @@ public class GameplayMediator implements IMediator {
 	@Override
 	public void DistributeMessage(IColleague sender, String message) {
 		int i = 0;
-		System.out.println("recieved");
-		while(i <= colleagueList.size()){
+		while(i <= colleagueList.size() - 1){
 			if(colleagueList.get(i) != sender){
 				colleagueList.get(i).ReceiveMessage(message);
 			}
+			i++;
 		}
 		
 	}
 
 	@Override
 	public void Register(IColleague colleague) {
-		colleagueList.add(colleague);
-		
+		colleagueList.add(colleague);	
 	}
 
 }

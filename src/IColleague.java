@@ -1,3 +1,8 @@
+/**
+ * Main interface for the mediators colleagues
+ * @author Chuck
+ *
+ */
 
 public interface IColleague {
 	
