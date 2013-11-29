@@ -183,49 +183,7 @@ public class Driver {
             playerTwo.setColor( color );
         }
     }
-    
-    /**
-     * Ends game in a draw, alerts both players that the draw has taken place
-     *
-     * @pre  both players have agreed to a draw
-     * @post the game has ended and both players have been notified 
-     *       of the draw
-     */
-    public void endInDraw( Player player ){
-	   	// Calls endOfGame with a message that game ended in a draw.
-		endGame( player.getName() + "'s draw offer was accepted. \n\n"
-			 + "Game ended in a draw." );
-    }
 
-    /**
-     * Called if a draw has been offered.
-     * 
-     * @param the player who offered the draw
-     * 
-     */    
-    public void drawOffered( Player player ){
-		if( player.getNumber() == playerOne.getNumber() ){
-		    playerTwo.acceptDraw( player );
-		}else if( player.getNumber() == playerTwo.getNumber() ){
-		    playerOne.acceptDraw( player );
-		}
-    }
-    
-    /** 
-     * The offer for a draw has been made.  This method declines
-     * that offer, continuing the game.
-     *
-     * @param player The player declining the draw.
-     */
-    public void declineDraw( Player player ){
-		if ( gameType == theFacade.LOCALGAME ) {
-		    player.endInDeclineDraw( player );
-		} else {
-		    playerOne.endInDeclineDraw( player );
-		    playerTwo.endInDeclineDraw( player );
-		}
-    }
-    
     /**
      * Ends the game as a result of a player quitting, notifies each player.
      * 
