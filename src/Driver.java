@@ -80,35 +80,31 @@ public class Driver {
 		// Check to see if player passed in was the active player
 		// If player passed in was active player, check for multiple
 		// jump (space is none negative)
-		if ( activePlayer == player ){
-		    
-		    // Inform the player that the move was not valid, or to make another jump
-		    if ( space < 0 ){
-			JOptionPane.showMessageDialog( null,
-		       	       activePlayer.getName() + " made an illegal move",
-	      	       	       "Invalid Move", JOptionPane.INFORMATION_MESSAGE );
-		    } else {
-			JOptionPane.showMessageDialog( null,
-			       activePlayer.getName() + " please make" +
-	       		       " another jump", "Multiple Jump Possible",
-			       JOptionPane.INFORMATION_MESSAGE );
-			
-			// Get the GUI to update
-			theFacade.setPlayerModes( activePlayer, passivePlayer );
-			
-			
-		
-		    // Inform the other player to make a move and
-		    // tell facade to update any listening GUIs and reset the timer
-		    
-		    Player tempHold = activePlayer;
-		    activePlayer    = passivePlayer;
-		    passivePlayer   = tempHold;
-		    
-		    theFacade.setPlayerModes( activePlayer, passivePlayer );
-		  
+			if ( activePlayer == player ){
+			    // Inform the player that the move was not valid, or to make another jump
+			    if ( space < 0 ){
+				JOptionPane.showMessageDialog( null,
+			       	       activePlayer.getName() + " made an illegal move",
+		      	       	       "Invalid Move", JOptionPane.INFORMATION_MESSAGE );
+			    } else {
+				JOptionPane.showMessageDialog( null,
+				       activePlayer.getName() + " please make" +
+		       		       " another jump", "Multiple Jump Possible",
+				       JOptionPane.INFORMATION_MESSAGE );
+				
+				// Get the GUI to update
+				theFacade.setPlayerModes( activePlayer, passivePlayer );
+				
+			    // Inform the other player to make a move and tell facade to 
+				// update any listening GUIs and reset the timer
+			    
+			    Player tempHold = activePlayer;
+			    activePlayer    = passivePlayer;
+			    passivePlayer   = tempHold;
+			    
+			    theFacade.setPlayerModes( activePlayer, passivePlayer );
 		    }
-		    }
+		}
 		
     }
     
@@ -237,7 +233,6 @@ public class Driver {
     public void startGame(){
 		selectColors();
 
-		
 		// Tell player with the correct color to make a move
 		if ( playerOne.getColor() == Color.white ) {
 		    activePlayer  = playerOne;
@@ -246,32 +241,15 @@ public class Driver {
 		    activePlayer  = playerTwo;
 		    passivePlayer = playerOne;
 		}
+		
     	mediator.Register(playerOne);
     	mediator.Register(playerTwo);
     	mediator.Register(activePlayer);
     	mediator.setActivePlayer(activePlayer);
     	playerOne.SendMessage(mediator, "test");
 	
-		
 		theFacade.setPlayerModes( activePlayer, passivePlayer );
     }
-    
-    /**
-     * Sets the host player will play against in case of 
-     * a game over a network.
-     *
-     * @param  host the host of the game to be played
-     *
-     * @pre  There is a person to host the game, both players are 
-     *       networkedPlayers
-     * 
-     * @post The players are connected to play
-     */
-    /*public void setHost( URL host ){
-	   	// Call connectToHost in player two with the URL
-		//((NetworkPlayer)playerOne).setHost( host );
-		//((NetworkPlayer)playerTwo).setHost( host );
-    }*/
     
     /**
      * Return the player whose turn it is not.
@@ -298,7 +276,6 @@ public class Driver {
     	return runningTimer;
     }
     
-   
     /**
      * Select the game type.
      *
