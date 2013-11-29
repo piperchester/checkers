@@ -93,18 +93,8 @@ public class Driver {
 			// Get the GUI to update
 			theFacade.setPlayerModes( activePlayer, passivePlayer );
 			
-			// If game is networked tell networked player to send the move
-			if ( gameType == theFacade.HOSTGAME || gameType == theFacade.CLIENTGAME ) {
-			    ( (NetworkPlayer) activePlayer ).sendMove();
-				}
-		    }
-		} else if ( passivePlayer == player ) {
-		    // If game is networked, tell networked player to send move
-		    if ( gameType == theFacade.HOSTGAME || gameType == theFacade.CLIENTGAME ) {
-				((NetworkPlayer)activePlayer).sendMove();
-				((NetworkPlayer)activePlayer).waitForPlayer();
-		    }
-		    
+			
+		
 		    // Inform the other player to make a move and
 		    // tell facade to update any listening GUIs and reset the timer
 		    
@@ -113,7 +103,10 @@ public class Driver {
 		    passivePlayer   = tempHold;
 		    
 		    theFacade.setPlayerModes( activePlayer, passivePlayer );
-		}
+		  
+		    }
+		    }
+		
     }
     
     /**
@@ -146,16 +139,11 @@ public class Driver {
      * @pre   less than 2 players exist
      * @post  a player with correct name has been created  
      */
-    public void createPlayer( int num, int type, String name ){
+    public void createPlayer( int num, String name ){
 		Player temp = null;
-	
-		if ( type == Player.LOCALPLAYER ) {
-		    temp = new LocalPlayer( num, theRules, this );
-		    temp.setName( name );
-		} else if ( type == Player.NETWORKPLAYER ) {
-		    temp = new NetworkPlayer( num, theRules, this );
-		    temp.setName( name );
-		}
+
+		temp = new Player( num, theRules, this );
+		temp.setName( name );
 		
 		// TODO: Ternary
 		if ( num == 1 ) {
@@ -295,14 +283,7 @@ public class Driver {
      */
     public void startGame(){
 		selectColors();
-	       
-		if ( gameType == theFacade.HOSTGAME ) {
-		    ( (NetworkPlayer)playerTwo).waitForConnect();
-		    //( (NetworkPlayer)playerTwo).waitForConnect();
-		} else if ( gameType == theFacade.CLIENTGAME ) {
-		    //( (NetworkPlayer)playerOne).connectToHost();
-		    ( (NetworkPlayer)playerOne).connectToHost();
-		}
+
 		
 		// Tell player with the correct color to make a move
 		if ( playerOne.getColor() == Color.white ) {
@@ -327,11 +308,11 @@ public class Driver {
      * 
      * @post The players are connected to play
      */
-    public void setHost( URL host ){
+    /*public void setHost( URL host ){
 	   	// Call connectToHost in player two with the URL
-		((NetworkPlayer)playerOne).setHost( host );
-		((NetworkPlayer)playerTwo).setHost( host );
-    }
+		//((NetworkPlayer)playerOne).setHost( host );
+		//((NetworkPlayer)playerTwo).setHost( host );
+    }*/
     
     /**
      * Return the player whose turn it is not.

@@ -229,7 +229,7 @@ public class Firstscreen extends JFrame implements ActionListener{
 			    //create a URL from the IP address in the IPfield
 			    URL address = new URL( "http://" + IPField.getText() );
 			  
-			    theFacade.setHost( address );   //set the host
+			    //theFacade.setHost( address );   //set the host
 			    
 			    //hide the Firstscreen, make and show the Second screen
 			    this.hide();

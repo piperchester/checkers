@@ -32,7 +32,6 @@ public class Facade extends Component {
     public static String ID           = "facade";
     
     public Driver      theDriver;
-    public LocalPlayer theLocalPlayer;
     public Board       theBoard;
     public Player      passivePlayer;
     public Player      activePlayer;		
@@ -232,11 +231,11 @@ public class Facade extends Component {
      *
      * @pre   host is not null
      */
-    public void setHost( URL host ){
+    /*public void setHost( URL host ){
 		if( host != null ){
 		    theDriver.setHost( host );
 		}
-    }
+    }*/
     
     /**
      * Display to local players that game has ended with 
@@ -343,10 +342,6 @@ public class Facade extends Component {
      * @param type Int for type of player (Local, network, etc.)
      */
     public void createPlayer( int num, int type ) {
-		if ( type == HOSTGAME || type == CLIENTGAME ) {
-		    theDriver.createPlayer( num, Player.NETWORKPLAYER, "UnNamedPlayer" );
-		} else {
-		    theDriver.createPlayer( num, Player.LOCALPLAYER, "UnNamedPlayer" );
-		}
+		    theDriver.createPlayer( num, "UnNamedPlayer" );
     }
 }

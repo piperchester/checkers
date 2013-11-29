@@ -12,6 +12,8 @@
  */
 
 import java.awt.*;
+
+import javax.swing.JOptionPane;
 		   
 /**
 *  A class representation of the Player object.  This object
@@ -21,10 +23,7 @@ import java.awt.*;
 *  @author
 */
 
-public abstract class Player {
-    
-    public static int LOCALPLAYER   = 0;
-    public static int NETWORKPLAYER = 1;
+public class Player {
     
     // Instance of the rules class which will be used to
     // validate moves and check for game ending conditions
@@ -95,7 +94,15 @@ public abstract class Player {
      * @pre  game is in progress
      * @post message is sent to driver to end the game
      */
-    public abstract void endOfGame( String message );
+    public void endOfGame( String message ){
+		JOptionPane.showMessageDialog( null,
+	               "Game has ended because: "
+	       	       + message,
+	       	       "Game Over",
+		       JOptionPane.INFORMATION_MESSAGE );
+		
+		System.exit( 0 );
+    }
     
     /**
      * When the current player clicks the draw button, this method
@@ -107,7 +114,9 @@ public abstract class Player {
      * @pre a game is in progress
      * @pre a draw has been offered
      */
-    public abstract void offerDraw( Player player ); 
+    public void offerDraw( Player player ){
+    	theDriver.drawOffered(this);
+    }
     
     /**
      * When the current player accepts a draw, this method is called 
@@ -118,13 +127,34 @@ public abstract class Player {
      * @pre a game is in progress
      * @pre a draw has been accepted
      */
-    public abstract void acceptDraw( Player player );
+    public void acceptDraw( Player player ){
+		int selected = JOptionPane.showConfirmDialog( null, player.getName()
+		   	      + " has requested a draw."
+	       		      + "\n\nWill you agree to a"
+	      		      + " draw?",
+	       		      "Draw offer",
+	     	       	      JOptionPane.YES_NO_OPTION );
+	
+	if ( selected == JOptionPane.YES_OPTION ) {
+	    theDriver.endInDraw( player );
+	} else if ( selected == JOptionPane.NO_OPTION ) {
+	    theDriver.declineDraw( player );
+	} else {
+	    theDriver.declineDraw( player );
+	}
+    }
     
     /**
      *  Method is invoked if the other player declines a draw.
      *  It displays the dialog box for the decline of draw
      */
-    public abstract void endInDeclineDraw( Player player );
+    public void endInDeclineDraw( Player player ){
+    	JOptionPane.showMessageDialog( null,
+   	            player.getName() + " has declined the draw offer."
+                + "\n\nClick OK to continue the game.",
+            "Draw declined",
+            JOptionPane.INFORMATION_MESSAGE );
+    }
     
     
     /**
@@ -135,7 +165,15 @@ public abstract class Player {
      *
      * @param endMessage Message indicating the end of the game.
      */
-    public abstract void endInDraw( Player player ); 
+    public void endInDraw( Player player ){
+		JOptionPane.showMessageDialog( null,
+	       	       player.getName() + " accepted a draw."
+		       + "\n\nClick OK to end the program.",
+	      	       "Game Over",
+	               JOptionPane.INFORMATION_MESSAGE );
+		
+		System.exit( 0 );
+    }
    
 
     /**
