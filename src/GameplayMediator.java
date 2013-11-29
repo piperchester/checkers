@@ -17,9 +17,7 @@ public class GameplayMediator implements IMediator {
 	@Override
 	public void DistributeMessage(IColleague sender, String message) {
 		int i = 0;
-		System.out.println(colleagueList.toString());
 		while(i <= colleagueList.size() - 1){
-			System.out.println(colleagueList.get(i).toString());
 			if(colleagueList.get(i) != sender){
 				colleagueList.get(i).ReceiveMessage(message);
 			}

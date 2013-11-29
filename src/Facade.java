@@ -135,7 +135,7 @@ public class Facade extends Component {
      * class offerDraw() on both players.
      */
     public void pressDraw(){
-		activePlayer.offerDraw( activePlayer );
+	//	activePlayer.offerDraw( activePlayer );
     }
     
     /**

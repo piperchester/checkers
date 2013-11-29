@@ -23,14 +23,10 @@ public class Firstscreen extends JFrame implements ActionListener{
   
     // Variables declaration - do not modify
     private JRadioButton LocalGameButton;
-    private JRadioButton HostGameButton;
-    private JRadioButton JoinGameButton;
-    private JTextField IPField;
-    private JLabel IPLabel;
     private JButton OKButton;
     private JButton CancelButton;
-    private JLabel IPExampleLabel;
     private ButtonGroup gameModes;
+    private IMediator mediator; 
 
     /** 
      * Creates new form Firstscreen
@@ -38,9 +34,10 @@ public class Firstscreen extends JFrame implements ActionListener{
      * @param facade a facade object for the GUI to interact with
      *     
      */
-    public Firstscreen( Facade facade ) {
+    public Firstscreen( Facade facade, IMediator mediator ) {
 		super( "First screen" );
 	        theFacade = facade;
+	        this.mediator = mediator;
 	        initComponents();
 	        pack();
     }
@@ -52,14 +49,9 @@ public class Firstscreen extends JFrame implements ActionListener{
     private void initComponents() {
 
         LocalGameButton = new JRadioButton();
-        HostGameButton = new JRadioButton();
-        JoinGameButton = new JRadioButton();
         gameModes = new ButtonGroup();
-        IPField = new JTextField();
-        IPLabel = new JLabel();
         OKButton = new JButton();
         CancelButton = new JButton();
-        IPExampleLabel = new JLabel();
         getContentPane().setLayout(new java.awt.GridBagLayout());
         java.awt.GridBagConstraints gridBagConstraints1;
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -70,8 +62,6 @@ public class Firstscreen extends JFrame implements ActionListener{
         );
         
 		gameModes.add(LocalGameButton);
-	    gameModes.add(HostGameButton);
-		gameModes.add(JoinGameButton);
 			
 		LocalGameButton.setActionCommand("local");
 	    LocalGameButton.setText("Local game");
@@ -83,45 +73,22 @@ public class Firstscreen extends JFrame implements ActionListener{
 	    gridBagConstraints1.gridy = 0;
 	    getContentPane().add(LocalGameButton, gridBagConstraints1);
 	    
-	    HostGameButton.setActionCommand("host");
-	    HostGameButton.setText("Host game");
-	    HostGameButton.addActionListener(this);
 	    
 	    gridBagConstraints1 = new GridBagConstraints();
 	    gridBagConstraints1.gridx = 1;
 	    gridBagConstraints1.gridy = 1;
-	    getContentPane().add(HostGameButton, gridBagConstraints1);
-	    
-	    JoinGameButton.setActionCommand("join");
-	    JoinGameButton.setText("Join game");
-	    JoinGameButton.addActionListener(this);
 	    
 	    gridBagConstraints1 = new java.awt.GridBagConstraints();
 	    gridBagConstraints1.gridx = 1;
 	    gridBagConstraints1.gridy = 2;
-	    getContentPane().add(JoinGameButton, gridBagConstraints1);
-	    
-	    IPField.setBackground( Color.white );
-	    IPField.setName("textfield5");
-	    IPField.setForeground( Color.black);
-	    IPField.setText("IP address goes here");
-	    IPField.setEnabled( false );
-	    IPField.addActionListener(this);
 	    
 	    gridBagConstraints1 = new GridBagConstraints();
 	    gridBagConstraints1.gridx = 2;
 	    gridBagConstraints1.gridy = 3;
-	    getContentPane().add(IPField, gridBagConstraints1);
-	    
-	    IPLabel.setName("label10");
-	    IPLabel.setBackground(new Color (204, 204, 204));
-	    IPLabel.setForeground(Color.black);
-	    IPLabel.setText("IP address:");
 	    
 	    gridBagConstraints1 = new GridBagConstraints();
 	    gridBagConstraints1.gridx = 1;
 	    gridBagConstraints1.gridy = 3;
-	    getContentPane().add(IPLabel, gridBagConstraints1);
 	    
 	    OKButton.setText("OK");
 	    OKButton.setActionCommand("ok");
@@ -149,15 +116,12 @@ public class Firstscreen extends JFrame implements ActionListener{
 	    gridBagConstraints1.insets = new Insets(30, 0, 0, 0);
 	    getContentPane().add(CancelButton, gridBagConstraints1);
 	    
-	    IPExampleLabel.setName("label11");
-	    IPExampleLabel.setBackground(new Color (204, 204, 204));
-	    IPExampleLabel.setForeground(Color.black);
-	    IPExampleLabel.setText("Ex: 123.456.789.123");
+
 	    
 	    gridBagConstraints1 = new GridBagConstraints();
 	    gridBagConstraints1.gridx = 2;
 	    gridBagConstraints1.gridy = 4;
-	    getContentPane().add(IPExampleLabel, gridBagConstraints1);
+
     }
 
 	/**
@@ -170,19 +134,7 @@ public class Firstscreen extends JFrame implements ActionListener{
 	public void actionPerformed( ActionEvent e ){
 		
 	    try{
-		// handles disabling IP field unless join game button is selected
-		if ( ( e.getActionCommand() ).equals( "join" ) ){
-		    IPField.setEnabled( true );
-		}else if( (e.getActionCommand() ).equals( "local" ) ){
-		    IPField.setEnabled( false );
-		}else if( ( e.getActionCommand() ).equals( "host" ) ){
-		    IPField.setEnabled( false );
-
-		    //this next if statement takes care of when the 
-		    //OK button is selected and goes to the second 
-		    //screen settign the desired options          
-
-		}else if( ( e.getActionCommand() ).equals( "ok" ) ){
+	    	if( ( e.getActionCommand() ).equals( "ok" ) ){
 		    
 		    //a temporary button to use for determining the game type
 		    ButtonModel tempButton = gameModes.getSelection();
@@ -198,51 +150,12 @@ public class Firstscreen extends JFrame implements ActionListener{
 			
 			//hide the Firstscreen, make a Secondscreen and show it
 			this.hide();
-			next = new Secondscreen( theFacade, this, theFacade.LOCALGAME );
+			next = new Secondscreen( theFacade, this, theFacade.LOCALGAME, mediator );
 			next.show();
 			
 			//if the host game button is selected
-		    } else if( tempButton.getActionCommand().equals( "host" ) ){
+		    } 
 			
-			//set up to host a game
-			theFacade.setGameMode( theFacade.HOSTGAME );
-			
-			theFacade.createPlayer( 1, theFacade.HOSTGAME );
-			theFacade.createPlayer( 2, theFacade.HOSTGAME );
-			
-			//hide the Firstscreen, make the Secondscreen and show it
-			this.hide();
-			next = new Secondscreen( theFacade, this, theFacade.HOSTGAME );
-			next.show();
-			
-			//if the join game button is selected
-		    } else if( tempButton.getActionCommand().equals( "join" ) ){
-			
-			//set up to join a game
-			theFacade.setGameMode( theFacade.CLIENTGAME );
-			
-			theFacade.createPlayer( 1, theFacade.CLIENTGAME );
-			theFacade.createPlayer( 2, theFacade.CLIENTGAME );
-			
-			//try to connect
-			try {
-			    //create a URL from the IP address in the IPfield
-			    URL address = new URL( "http://" + IPField.getText() );
-			  
-			    //theFacade.setHost( address );   //set the host
-			    
-			    //hide the Firstscreen, make and show the Second screen
-			    this.hide();
-			    next = new Secondscreen( theFacade, this, theFacade.CLIENTGAME );
-			    next.show();
-			} catch ( MalformedURLException x ) {
-			    JOptionPane.showMessageDialog( null,
-							   "Invalid host address",
-							   "Error",
-							   JOptionPane.INFORMATION_MESSAGE );
-			}
-			
-		}
 		} else if( e.getActionCommand().equals( "cancel" ) ){
 		    System.exit( 0 );
 		} 

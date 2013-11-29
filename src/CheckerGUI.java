@@ -106,6 +106,7 @@ public class CheckerGUI extends JFrame implements ActionListener{
     private JButton ResignButton;
     private JButton DrawButton;
     private JLabel warningLabel, whosTurnLabel;
+    private GameplayMediator mediator;
     
     
     // Piper - Test Command
@@ -124,7 +125,7 @@ public class CheckerGUI extends JFrame implements ActionListener{
      *
      */
 
-    public CheckerGUI( Facade facade, String name1, String name2 ) {
+    public CheckerGUI( Facade facade, String name1, String name2, GameplayMediator mediator ) {
 
         super("Checkers");
         
@@ -147,6 +148,7 @@ public class CheckerGUI extends JFrame implements ActionListener{
         playerOnesName = nameOne;
         playerTwosName = nameTwo;
         theFacade = facade;
+        this.mediator = mediator;
         register();
         
         initComponents ();
@@ -1151,7 +1153,7 @@ public class CheckerGUI extends JFrame implements ActionListener{
     private void exitForm(java.awt.event.WindowEvent evt) {
         // OLD: theFacade.pressQuit();
     	System.out.println("Testing");
-    	invoker.invokeCommand(new QuitCommand(this));
+    	invoker.invokeCommand(new QuitCommand(this, mediator));
     }
 
     /**
@@ -1214,7 +1216,7 @@ public class CheckerGUI extends JFrame implements ActionListener{
 	    	// OLD: theFacade.pressQuit();
 	    	
 	    	// Call invoker to execute from QuitCommand
-	    	invoker.invokeCommand(new QuitCommand(this));	
+	    	invoker.invokeCommand(new QuitCommand(this, mediator));	
 	    
 		//if the source came from the facade
 	    }else if( e.getSource().equals( theFacade ) ) {
@@ -1365,7 +1367,7 @@ public class CheckerGUI extends JFrame implements ActionListener{
 				warningLabel.setText( "Time is running out!!!" );
 		    } else if (timeRemaining <= 0 && !(warningLabel.getText()).equals( "" )) {
 		    	// OlD: theFacade.pressQuit();
-		    	invoker.invokeCommand(new QuitCommand(this));
+		    	invoker.invokeCommand(new QuitCommand(this, mediator));
 		    } else {
 		    	timeRemaining--;
 		    }

@@ -44,6 +44,7 @@ public class Secondscreen extends JFrame
     private JButton cancelButton;
     private JSlider turnLengthField;
     private JSlider warningLengthField;
+    private IMediator mediator;
     // End of variables declaration
 	
 	
@@ -57,13 +58,13 @@ public class Secondscreen extends JFrame
      * 
      */
     
-    public Secondscreen( Facade f, Firstscreen first, int type ) {
+    public Secondscreen( Facade f, Firstscreen first, int type, IMediator mediator ) {
 
         super( "Second Screen" );
         theFacade = f;
         theFirst = first;
         gameType = type;
-        
+        this.mediator = mediator;
         initComponents ();
         pack ();
     }
@@ -325,7 +326,7 @@ public class Secondscreen extends JFrame
 		//hide this screen, make and show the GUI
 		this.hide();
 		CheckerGUI GUI = new CheckerGUI( theFacade, theFacade.getPlayerName( 1 ),
-						 theFacade.getPlayerName( 2 ) );
+						 theFacade.getPlayerName( 2 ), (GameplayMediator)mediator );
 		GUI.show();
 		
 		//if they hit cancel go to the previous screen

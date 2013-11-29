@@ -18,8 +18,9 @@ public class QuitCommand implements ICommand, IColleague {
 	 * Single Arg constructor provides the receiver for the command
 	 * @param receiver the recipient for this command's actions.
 	 */
-	public QuitCommand(CheckerGUI receiver) {
+	public QuitCommand(CheckerGUI receiver, GameplayMediator mediator) {
 		this.receiver = receiver;
+		this.mediator = mediator;
 	}
 	
 	/**
@@ -28,10 +29,10 @@ public class QuitCommand implements ICommand, IColleague {
 	@Override
 	public void execute() {
 		
-		//mediator.Register(this);
-		//this.requestPlayerName(mediator);
+		mediator.Register(this);
+		this.requestPlayerName(mediator);
 		
-		JOptionPane.showMessageDialog( null, "Game has ended because: TEST " + pName, "Game Over", 
+		JOptionPane.showMessageDialog( null, "Game has ended because " + pName + "has quit the game", "Game Over", 
 				JOptionPane.INFORMATION_MESSAGE );
 		
 		System.exit(0);

@@ -350,4 +350,8 @@ public class Driver {
 		
 		return timer;
     }   
+    
+    public IMediator getMediator(){
+    	return mediator;
+    }
 }
