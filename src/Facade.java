@@ -58,18 +58,15 @@ public class Facade extends Component {
     }
     
     /**
-     * Return an int indicating which player's turn it is.
+     * Return int indicating which player's turn it is.
      * ( e.g. 1 for player 1 )
-     *
-     * @return int   The number of the player whose turn it is.
-     * 
      */
     public int whosTurn(){
     	return activePlayer.getNumber();
     }
     
     /**
-     * Set which players turn it is.
+     * Set which player's turn it is.
      * 
      * @param active  The active player
      * @param passive The passive player
@@ -116,13 +113,10 @@ public class Facade extends Component {
     
     /**
      * Send a move on to the kernel, i.e. call makeMove() in 
-     * the LocalPlayer and inform it whose turn it is.
-     *
-     * @pre startSpace is defined
-     * @pre endSpace is defined
+     * the LocalPlayer and inform it whose turn it is. startSpace
+     * and endSpace must be defined.
      */
     private void makeLocalMove(){
-	
 		//make sure startSpace and endSpace are defined
 		if( startSpace != 99 && endSpace!= 99 ){
 		    // Takes the information of a move and calls makeMove() in a localplayer
@@ -158,8 +152,6 @@ public class Facade extends Component {
      * 
      * @param  playerNum the number of a player
      * @return string    the name associated with playerNum
-     *
-     * @pre playerNum is a valid player number
      */
     public String getPlayerName( int playerNum ){
 		try{
@@ -179,12 +171,11 @@ public class Facade extends Component {
     }
     
     /**
-     * Tell kernel to associate given name with given player number.
+     * Tell kernel to associate given name with acceptable given player number.
      *
      * @param playerNum the number of a player
      * @param name      the name that player should be given
      *
-     * @pre playerNum is a valid player number
      */
     public void setPlayerName( int playerNum, String name ){
     	theDriver.setPlayerName( playerNum, name );
@@ -234,8 +225,6 @@ public class Facade extends Component {
      * the message provided.
      * 
      * @param message
-     * 
-     * @post the game ends
      */
     public void showEndGame( String message ){
     	theDriver.endGame( message );
@@ -246,8 +235,6 @@ public class Facade extends Component {
      * the Driver's setGameMode. 
      * 
      * @param the mode of the game
-     * 
-     * @pre we are in the setup for a game
      * 
      */
     public void setGameMode( int mode ) throws Exception{
@@ -262,8 +249,6 @@ public class Facade extends Component {
      * Returns timer value: how long each player gets to take a turn.
      * 
      * @return the amount of time each player has for a turn 
-     * 
-     * @pre there has been a timer set for the current game
      * 
      */
     public int getTimer(){
@@ -313,6 +298,6 @@ public class Facade extends Component {
      * @param type Int for type of player (Local, network, etc.)
      */
     public void createPlayer( int num, int type ) {
-		    theDriver.createPlayer( num, "UnNamedPlayer" );
+    	theDriver.createPlayer( num, "UnNamedPlayer" );
     }
 }
