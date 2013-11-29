@@ -1354,38 +1354,28 @@ public class CheckerGUI extends JFrame implements ActionListener{
     }
     
     /**
-     *
-     * Update the timer
+     * Update the timer. If the time has run out but not in warning
+     * time yet, display warning and count warning time. If the time
+     * has run out and it was in warning time, quit game.
      *
      */
-        
     public void updateTime() {            
-            
-	if ( theFacade.getTimer() > 0 ) {
-                
-	    // if the time has run out but not in warning time yet
-	    // display warning and count warning time
-	    if ( timeRemaining <= 0 && ( warningLabel.getText() ).equals( "" ) ) {
-		timeRemaining = theFacade.getTimerWarning();
-		warningLabel.setText( "Time is running out!!!" );
-                    
-        // if the time has run out and it was in warning time quit game
-	    } else if ( timeRemaining <= 0 && !( warningLabel.getText() ).equals( "" ) ) {
-                  
-		theFacade.pressQuit();
-                    
-	    } else {
-                    
-		timeRemaining--;
-                    
-	    }
-                
-	    secondsLeftLabel.setText( timeRemaining + " sec." );
-                    
-	} else {
-	    secondsLeftLabel.setText( "*****" );
+		if (theFacade.getTimer() > 0) {
+		    if (timeRemaining <= 0 && (warningLabel.getText()).equals("")) {
+				timeRemaining = theFacade.getTimerWarning();
+				warningLabel.setText( "Time is running out!!!" );
+		    } else if (timeRemaining <= 0 && !(warningLabel.getText()).equals( "" )) {
+		    	theFacade.pressQuit();    
+		    } else {
+		    	timeRemaining--;
+		    }
+	                
+		    secondsLeftLabel.setText(timeRemaining + " sec.");
+	                    
+		} else {
+		    secondsLeftLabel.setText("*****");
+		}
 	}
-    }
     
     /**
      * Checks the ending condotions for the game
