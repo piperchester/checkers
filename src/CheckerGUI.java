@@ -1195,38 +1195,26 @@ public class CheckerGUI extends JFrame implements ActionListener{
 		e.getActionCommand().equals( "62" ) ) {
 		
 		//call selectSpace with the button pressed
-		theFacade.selectSpace(
-				   Integer.parseInt( e.getActionCommand() ) );
+		theFacade.selectSpace(Integer.parseInt(e.getActionCommand()));
 		
-		//if draw is pressed
-	    }else if( e.getActionCommand().equals( "draw" ) ){
-			//does sequence of events for a draw
-	    	//	 theFacade.pressDraw();
-		    	
+	    } else if(e.getActionCommand().equals("draw")){
 	    	invoker.invokeCommand(new DrawCommand(this));
-		    	
-		
-		//if resign is pressed
 	    } else if(e.getActionCommand().equals("resign" )) {
-	    	// OLD: theFacade.pressQuit();
-	    	
-	    	// Call invoker to execute from QuitCommand
 	    	invoker.invokeCommand(new QuitCommand(this));	
-	    
-		//if the source came from the facade
-	    }else if( e.getSource().equals( theFacade ) ) {
 		
-		//if its a player switch event
-		if ( (e.getActionCommand()).equals(theFacade.playerSwitch) ) {
-		    //set a new time
-		    timeRemaining = theFacade.getTimer();
-		    //if it is an update event
-		} else if ( (e.getActionCommand()).equals(theFacade.UPDATE) ) {
-		    //update the GUI
-		    update();
-		} else {
-		    throw new Exception( "unknown message from facade" );
-		}
+	    //if the source came from the facade
+	    }else if( e.getSource().equals( theFacade ) ) {
+			//if its a player switch event
+			if ( (e.getActionCommand()).equals(theFacade.playerSwitch) ) {
+			    //set a new time
+			    timeRemaining = theFacade.getTimer();
+			    //if it is an update event
+			} else if ( (e.getActionCommand()).equals(theFacade.UPDATE) ) {
+			    //update the GUI
+			    update();
+			} else {
+			    throw new Exception( "unknown message from facade" );
+			}
 	    }
 	    //catch various Exceptions
 	}catch( NumberFormatException excep ){
