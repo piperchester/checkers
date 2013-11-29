@@ -16,6 +16,7 @@
  */
 
 import javax.swing.*;
+
 import java.awt.event.*;
 import java.awt.*;
 import java.util.*;
@@ -148,9 +149,17 @@ public class CheckerGUI extends JFrame implements ActionListener{
         playerOnesName = nameOne;
         playerTwosName = nameTwo;
         theFacade = facade;
+
         this.mediator = mediator;
         register();
+
         
+        try{
+        	theFacade.addActionListener(this);
+        } catch( Exception e ){
+            System.err.println( e.getMessage() );
+        }
+
         initComponents ();
         pack ();
         update();
@@ -159,19 +168,10 @@ public class CheckerGUI extends JFrame implements ActionListener{
     
     
     /*
-     * This method handles setting up the timer
+     * Tries to add an actionListener to the GUI.
      */
-    
     private void register() {
-	
-        try{
-	    theFacade.addActionListener( this );
-	  
-        }catch( Exception e ){
-            
-            System.err.println( e.getMessage() );
-         
-        }
+
     }
     
     /**
@@ -1200,18 +1200,10 @@ public class CheckerGUI extends JFrame implements ActionListener{
 		e.getActionCommand().equals( "62" ) ) {
 		
 		//call selectSpace with the button pressed
-		theFacade.selectSpace(
-				   Integer.parseInt( e.getActionCommand() ) );
+		theFacade.selectSpace(Integer.parseInt(e.getActionCommand()));
 		
-		//if draw is pressed
-	    }else if( e.getActionCommand().equals( "draw" ) ){
-			//does sequence of events for a draw
-	    	//	 theFacade.pressDraw();
-		    	
+	    } else if(e.getActionCommand().equals("draw")){
 	    	invoker.invokeCommand(new DrawCommand(this));
-		    	
-		
-		//if resign is pressed
 	    } else if(e.getActionCommand().equals("resign" )) {
 	    	// OLD: theFacade.pressQuit();
 	    	
@@ -1220,18 +1212,23 @@ public class CheckerGUI extends JFrame implements ActionListener{
 	    
 		//if the source came from the facade
 	    }else if( e.getSource().equals( theFacade ) ) {
+
+	    	invoker.invokeCommand(new QuitCommand(this, mediator));	
+
 		
-		//if its a player switch event
-		if ( (e.getActionCommand()).equals(theFacade.playerSwitch) ) {
-		    //set a new time
-		    timeRemaining = theFacade.getTimer();
-		    //if it is an update event
-		} else if ( (e.getActionCommand()).equals(theFacade.UPDATE) ) {
-		    //update the GUI
-		    update();
-		} else {
-		    throw new Exception( "unknown message from facade" );
-		}
+	    //if the source came from the facade
+	    }else if( e.getSource().equals( theFacade ) ) {
+			//if its a player switch event
+			if ( (e.getActionCommand()).equals(theFacade.playerSwitch) ) {
+			    //set a new time
+			    timeRemaining = theFacade.getTimer();
+			    //if it is an update event
+			} else if ( (e.getActionCommand()).equals(theFacade.UPDATE) ) {
+			    //update the GUI
+			    update();
+			} else {
+			    throw new Exception( "unknown message from facade" );
+			}
 	    }
 	    //catch various Exceptions
 	}catch( NumberFormatException excep ){
