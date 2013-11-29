@@ -107,6 +107,10 @@ public class CheckerGUI extends JFrame implements ActionListener{
     private JButton DrawButton;
     private JLabel warningLabel, whosTurnLabel;
     
+    
+    // Piper - Test Command
+    private Invoker invoker; 
+    
     //the names and time left
     private static String playerOnesName="", playerTwosName="", timeLeft="";
 
@@ -123,6 +127,8 @@ public class CheckerGUI extends JFrame implements ActionListener{
     public CheckerGUI( Facade facade, String name1, String name2 ) {
 
         super("Checkers");
+        
+     invoker = new Invoker();
 
 	//long names mess up the way the GUI displays
 	//this code shortens the name if it is too long
@@ -1203,10 +1209,14 @@ public class CheckerGUI extends JFrame implements ActionListener{
 		theFacade.pressDraw();
 		
 		//if resign is pressed
-	    }else if( e.getActionCommand().equals( "resign" ) ) {
-		//does sequence of events for a resign
-		theFacade.pressQuit();
-		
+	    } else if(e.getActionCommand().equals("resign" )) {
+	    
+	    	
+	    	// Original: theFacade.pressQuit();
+	    	
+	    	// Call invoker to execute from QuitCommand
+	    	invoker.invokeCommand(new QuitCommand(this));	
+	    
 		//if the source came from the facade
 	    }else if( e.getSource().equals( theFacade ) ) {
 		
@@ -1359,9 +1369,8 @@ public class CheckerGUI extends JFrame implements ActionListener{
 		timeRemaining = theFacade.getTimerWarning();
 		warningLabel.setText( "Time is running out!!!" );
                     
-                // if the time has run out and it was in warning time quit game
-	    } else if ( timeRemaining <= 0 &&
-			!( warningLabel.getText() ).equals( "" ) ) {
+        // if the time has run out and it was in warning time quit game
+	    } else if ( timeRemaining <= 0 && !( warningLabel.getText() ).equals( "" ) ) {
                   
 		theFacade.pressQuit();
                     
