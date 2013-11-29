@@ -17,7 +17,7 @@ public class Invoker {
 	 * A method for adding commands that should be executed
 	 * @param command the command to be executed
 	 */
-	public void addCommand(ICommand command) {
+	public void invokeCommand(ICommand command) {
 		command.execute();
 	}
 }
