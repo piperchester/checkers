@@ -185,16 +185,6 @@ public class Driver {
             playerTwo.setColor( color );
         }
     }
-
-    /**
-     * Ends the game as a result of a player quitting, notifies each player.
-     * 
-     * @param the player who quit
-     */
-    public void endInQuit( Player player ){
-	playerOne.endOfGame( player.getName() + " quit the game" );
-	playerTwo.endOfGame( player.getName() + " quit the game" );
-    }
     
     /**
      * This method creates the timer to be used, if one is desired 
