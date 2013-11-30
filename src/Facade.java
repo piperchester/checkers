@@ -13,7 +13,6 @@
 
 import java.awt.*;
 import java.awt.event.*;
-import java.net.*;
 
 /**
  * An interface between the GUI and the kernel classes in a checkers game.
@@ -141,7 +140,7 @@ public class Facade extends Component implements IColleague{
     
     /**
      * Given a player number, returns the name associated 
-     * with that number.
+     * with that number. 
      * 
      * @param  playerNum the number of a player
      * @return string    the name associated with playerNum
@@ -152,11 +151,7 @@ public class Facade extends Component implements IColleague{
 		try{
 		    // Checks to see that playerNum is valid
 		    if( playerNum == 1 || playerNum == 2 ){
-				if( activePlayer.getNumber() == playerNum ){
-				    return activePlayer.getName();
-				}else{
-				    return passivePlayer.getName();
-				}
+		    	return activePlayer.getNumber() == playerNum ? activePlayer.getName() : passivePlayer.getName();
 		    }		   
 		}catch( Exception e ){  // Throws exception on illegal player name
 		    System.out.println( e.getMessage() );
@@ -201,19 +196,6 @@ public class Facade extends Component implements IColleague{
 		    throw new Exception( "Invalid timer settings" );
 		}	   
     }
-    
-    /**
-     * Tell the kernel to connect to the specified host to start a network game.
-     *
-     * @param host
-     *
-     * @pre   host is not null
-     */
-    /*public void setHost( URL host ){
-		if( host != null ){
-		    theDriver.setHost( host );
-		}
-    }*/
     
     /**
      * Display to local players that game has ended with 
@@ -327,5 +309,4 @@ public class Facade extends Component implements IColleague{
 		mediator.getActivePlayer(this);
 		
 	}
-    
 }
