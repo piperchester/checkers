@@ -145,7 +145,13 @@ public class CheckerGUI extends JFrame implements ActionListener, IColleague{
     		
     		squares[i].setPreferredSize(new Dimension(80, 80));
     		squares[i].setActionCommand(Integer.toString(i));
-    		squares[i].setBackground(Color.white);
+    		
+    		// Alternate between white squares and off white squares.
+    		if (i % 2 == 0){
+    			squares[i].setBackground(Color.white);
+    		} else {
+    			squares[i].setBackground(new Color(204, 204, 153));
+    		}
     		
     		gridBagConstraints = new java.awt.GridBagConstraints();
     	
