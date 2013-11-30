@@ -13,6 +13,7 @@
 
 import java.awt.*;
 import java.net.*;
+
 import javax.swing.*;
 
 /**
@@ -26,7 +27,7 @@ import javax.swing.*;
  *
  */
 
-public class Driver {
+public class Driver implements IColleague{
     
     private Player  playerOne;
     private Player  playerTwo;
@@ -102,10 +103,10 @@ public class Driver {
 			    // Inform the other player to make a move and tell facade to 
 				// update any listening GUIs and reset the timer
 			    
-			    Player tempHold = activePlayer;
-			    activePlayer    = passivePlayer;
-			    passivePlayer   = tempHold;
-			    
+				mediator.switchPlayers();
+				this.requestActive(mediator);
+				this.requestPassive(mediator);
+				
 			    theFacade.setPlayerModes( activePlayer, passivePlayer );
 		    }
 		}
@@ -324,4 +325,46 @@ public class Driver {
     public IMediator getMediator(){
     	return mediator;
     }
+
+	@Override
+	public void SendMessage(IMediator mediator, String message) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void requestPlayerName(IMediator mediator) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void ReceiveMessage(String message) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void RecieveActivePlayer(Player p) {
+		activePlayer = p;
+		
+	}
+
+	@Override
+	public void RecievePassivePlayer(Player p) {
+		passivePlayer = p;
+		
+	}
+
+	@Override
+	public void requestPassive(IMediator mediator) {
+		mediator.getPassivePlayer(this);
+		
+	}
+
+	@Override
+	public void requestActive(IMediator mediator) {
+		mediator.getActivePlayer(this);
+		
+	}
 }
