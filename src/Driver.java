@@ -78,6 +78,8 @@ public class Driver implements IColleague{
 		// Check to see if player passed in was the active player
 		// If player passed in was active player, check for multiple
 		// jump (space is none negative)
+    	this.requestActive(mediator);
+    	this.requestPassive(mediator);
 			if ( activePlayer == player ){
 			    // Inform the player that the move was not valid, or to make another jump
 			    if ( space < 0 ){
@@ -90,9 +92,6 @@ public class Driver implements IColleague{
 		       		       " another jump", "Multiple Jump Possible",
 				       JOptionPane.INFORMATION_MESSAGE );
 				
-				// Get the GUI to update
-				theFacade.setPlayerModes( activePlayer, passivePlayer );
-				
 			    // Inform the other player to make a move and tell facade to 
 				// update any listening GUIs and reset the timer
 			    
@@ -100,7 +99,7 @@ public class Driver implements IColleague{
 				this.requestActive(mediator);
 				this.requestPassive(mediator);
 				
-			    theFacade.setPlayerModes( activePlayer, passivePlayer );
+			    theFacade.setPlayerModes();
 		    }
 		}
 		
@@ -241,7 +240,7 @@ public class Driver implements IColleague{
 		    mediator.setPassivePlayer(playerOne);
 		}
 		
-		theFacade.setPlayerModes( activePlayer, passivePlayer );
+		theFacade.setPlayerModes();
     }
     
     /**

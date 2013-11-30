@@ -65,12 +65,9 @@ public class Facade extends Component implements IColleague{
      * @param active  The active player
      * @param passive The passive player
      */
-    public void setPlayerModes( Player active, Player passive ){
+    public void setPlayerModes(){
     	this.requestActive(mediator);
     	this.requestPassive(mediator);
-    	activePlayer = active;
-    	passivePlayer = passive;
-	
 		if ( actionListener != null ) {
 		    actionListener.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, UPDATE));
 		}
