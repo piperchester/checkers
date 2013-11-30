@@ -1,3 +1,4 @@
+package checkers;
 /**
  * Main interface for the mediators colleagues
  * @author Chuck

@@ -1,3 +1,4 @@
+package checkers;
 /*
  * Secondscreen.java
  *

@@ -1,3 +1,4 @@
+package checkers;
 /**
  * Notifier.java
  *

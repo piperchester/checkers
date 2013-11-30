@@ -1,3 +1,4 @@
+package checkers;
 import java.util.ArrayList;
 
 /**
