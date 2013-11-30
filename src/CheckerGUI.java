@@ -1,5 +1,3 @@
-
-
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
@@ -139,20 +137,6 @@ public class CheckerGUI extends JFrame implements ActionListener, IColleague{
         // and to the possibleSquares Vector. Also sets appropriate dimensions,
         // color, ActionCommand, and the GridBag constraints.
     	for (int i = 0; i < 64; i++){
-    		squares[i] = new JButton();
-    		possibleSquares.add(squares[i]);
-    		squares[i].addActionListener(this);
-    		
-    		squares[i].setPreferredSize(new Dimension(80, 80));
-    		squares[i].setActionCommand(Integer.toString(i));
-    		
-    		// Alternate between white squares and off white squares.
-    		if (i % 2 == 0){
-    			squares[i].setBackground(Color.white);
-    		} else {
-    			squares[i].setBackground(new Color(204, 204, 153));
-    		}
-    		
     		gridBagConstraints = new java.awt.GridBagConstraints();
     	
     		// Y counter starts at 1, and will increment seven times to reach 8
@@ -162,6 +146,21 @@ public class CheckerGUI extends JFrame implements ActionListener, IColleague{
     		
     		gridBagConstraints.gridy = gridYCounter;
     		gridBagConstraints.gridx = (i % 8); // Loops from 0 -> 7
+    		
+    		squares[i] = new JButton();
+    		possibleSquares.add(squares[i]);
+    		squares[i].addActionListener(this);
+    		
+    		squares[i].setPreferredSize(new Dimension(80, 80));
+    		squares[i].setActionCommand(Integer.toString(i));
+    		
+    		// As soon as the row increases, alternate the colors differently.
+    		// Even row, even X values for white and vice versa.
+    		if (gridBagConstraints.gridy % 2 == 0 && i % 2 == 0){
+    			squares[i].setBackground(Color.white);
+    		} else {
+    			squares[i].setBackground(new Color(204, 2034, 153));
+    		}
     		
     		getContentPane().add(squares[i], gridBagConstraints);
     	}
