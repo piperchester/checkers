@@ -12,13 +12,6 @@
  *   Initial creation of case study
  *
  */
-                                      
-// Not all of these are probably necessary.
-import java.awt.*;
-import java.util.*;
-import java.awt.event.*;
-import javax.swing.*;
-import java.net.*;
 
 /**
  *  This class is the system's Testing Kernel.  For now it is hard 
@@ -26,11 +19,6 @@ import java.net.*;
  *
  *  It tests the system and how it responds to such things as basic 
  *  moves/jumps, illegal values, and illegal moves/jumps.
- *
- *  All results will be outputted about pass/fail on the tests.
- *
- * @author
- * @version
  */
 public class TestingKernel extends java.lang.Object{
     // The facade that we will manipulate and interact with.
@@ -642,10 +630,6 @@ public class TestingKernel extends java.lang.Object{
      */
     public void simpleWait(){
         for( int i = 0; i < 2500; i++ ){
-            // not the best way for a delay
-            // but it allows a wait without 
-            // having to deal with threads.
         }
-    }
-    
-} // TestingKernel.java
+    }  
+} 
