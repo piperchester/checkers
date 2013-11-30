@@ -246,9 +246,7 @@ public class Driver {
 		    mediator.setActivePlayer(playerTwo);
 		    mediator.setPassivePlayer(playerOne);
 		}
-		;
-    	mediator.setActivePlayer(activePlayer);
-    	mediator.setPassivePlayer(passivePlayer);
+		
 	
 
 		theFacade.setPlayerModes( activePlayer, passivePlayer );
