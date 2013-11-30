@@ -10,23 +10,15 @@
  *    Initial creation of case study
  *
  */
-
 import java.awt.*;
-import java.net.*;
-
 import javax.swing.*;
 
 /**
- *
- * This class contains the main method to start the game, it 
- * creates all necessary classes as information is provided. Its 
+ * Contains the main method to start the game. 
+ * Creates all necessary classes as information is provided. Its 
  * functions include knowing whose turn it is, remembering multiple 
  * jumps, relaying end of game conditions and ending the game.
- *
- * @author
- *
  */
-
 public class Driver implements IColleague{
     
     private Player  playerOne;
@@ -34,7 +26,7 @@ public class Driver implements IColleague{
     private int     gameType;
     private Player  activePlayer;
     private Player  passivePlayer;
-    private boolean runningTimer;
+    private boolean isTimerRunning;
     private Timer   theTimer;
     private Facade  theFacade;
     private Rules   theRules;
@@ -205,9 +197,9 @@ public class Driver implements IColleague{
    	// If values are negative, set runningTimer to false
 	// If they are positive, create Timer and notifier with the times
 		if ( time < 0 ) {
-		    runningTimer = false;
+		    isTimerRunning = false;
 		} else {
-		    runningTimer = true;
+		    isTimerRunning = true;
 		    theTimer = new Timer();
 		}
     }
@@ -248,8 +240,6 @@ public class Driver implements IColleague{
 		    mediator.setPassivePlayer(playerOne);
 		}
 		
-	
-
 		theFacade.setPlayerModes( activePlayer, passivePlayer );
     }
     
@@ -266,19 +256,6 @@ public class Driver implements IColleague{
     }
     
     /**
-     * Whether the current game uses a timer
-     *
-     * @return true if a timer is being sed in the game, otherwise 
-     *         false
-     *
-     * @pre the game has started 
-     * @post this method has not altered anything
-     */
-    public boolean timerRunning(){
-    	return runningTimer;
-    }
-    
-    /**
      * Select the game type.
      *
      * @param mode the mode (0 local, 1 host, 2 client) of the game
@@ -287,7 +264,6 @@ public class Driver implements IColleague{
      * @post Mode is set
      */
     public void setGameMode( int newMode ){
-		// Set the value of mode
 		gameType = newMode;
     }
     
@@ -304,7 +280,7 @@ public class Driver implements IColleague{
     }
     
     /**
-     * Return the notifier of the Timer
+     * Return the notifier of the Timer by asking the timer for its notifier.
      *
      * @return the notifier for the Timer
      *
@@ -312,7 +288,6 @@ public class Driver implements IColleague{
      * @post This method has changed nothing
      */
     public Notifier getTimerNotifier(){
-	   	// Return the timers notifier, by asking the timer for its notifier
 		Notifier timer = null;
 		
 		if ( theTimer != null ) {
