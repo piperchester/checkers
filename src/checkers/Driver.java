@@ -253,6 +253,8 @@ public class Driver implements IColleague{
      * @post this method has not altered anything
      */
     public Player getOppositePlayer(){
+    	this.requestActive(mediator);
+    	this.requestPassive(mediator);
     	return passivePlayer;    	// player whos getTurnStatus is false
     }
     

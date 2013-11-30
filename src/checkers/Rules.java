@@ -84,7 +84,7 @@ public class Rules {
 	    int pieceType = theBoard.getPieceAt( start ).getType();// Type of
 	                                                      // the piece.
 	    // Contains any possible moves if the piece is on the wall.
-            Vector wallMoves = new Vector();
+        Vector wallMoves = new Vector();
 	    Vector pieces = new Vector();
 	    Vector tempVec = new Vector();
 	    Vector startVec = new Vector();
