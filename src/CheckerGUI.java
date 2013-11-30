@@ -1,5 +1,3 @@
-
-
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
@@ -12,9 +10,9 @@ import java.net.*;
 public class CheckerGUI extends JFrame implements ActionListener, IColleague{
    
     private static Facade theFacade; 
-    private Vector<JButton> possibleSquares = new Vector<JButton>();
+    private Vector<JButton> possibleTiles = new Vector<JButton>();
     
-    private JButton[] squares = new JButton[65];  // Array that holds 64 buttons, serving as the board squares
+    private JButton[] tiles = new JButton[65];  // Array that holds 64 buttons, serving as the board squares
     
     private int timeRemaining;
     private JLabel PlayerOnelabel;
@@ -139,20 +137,6 @@ public class CheckerGUI extends JFrame implements ActionListener, IColleague{
         // and to the possibleSquares Vector. Also sets appropriate dimensions,
         // color, ActionCommand, and the GridBag constraints.
     	for (int i = 0; i < 64; i++){
-    		squares[i] = new JButton();
-    		possibleSquares.add(squares[i]);
-    		squares[i].addActionListener(this);
-    		
-    		squares[i].setPreferredSize(new Dimension(80, 80));
-    		squares[i].setActionCommand(Integer.toString(i));
-    		
-    		// Alternate between white squares and off white squares.
-    		if (i % 2 == 0){
-    			squares[i].setBackground(Color.white);
-    		} else {
-    			squares[i].setBackground(new Color(204, 204, 153));
-    		}
-    		
     		gridBagConstraints = new java.awt.GridBagConstraints();
     	
     		// Y counter starts at 1, and will increment seven times to reach 8
@@ -163,7 +147,22 @@ public class CheckerGUI extends JFrame implements ActionListener, IColleague{
     		gridBagConstraints.gridy = gridYCounter;
     		gridBagConstraints.gridx = (i % 8); // Loops from 0 -> 7
     		
-    		getContentPane().add(squares[i], gridBagConstraints);
+    		tiles[i] = new JButton();
+    		possibleTiles.add(tiles[i]);
+    		tiles[i].addActionListener(this);
+    		
+    		tiles[i].setPreferredSize(new Dimension(80, 80));
+    		tiles[i].setActionCommand(Integer.toString(i));
+    		
+    		// As soon as the row increases, alternate the colors differently.
+    		// Even row, even X values for white and vice versa.
+    		if (gridBagConstraints.gridy % 2 == 0 && i % 2 == 0){
+    			tiles[i].setBackground(Color.white);
+    		} else {
+    			tiles[i].setBackground(new Color(204, 2034, 153));
+    		}
+    		
+    		getContentPane().add(tiles[i], gridBagConstraints);
     	}
 	
         
@@ -358,7 +357,7 @@ public class CheckerGUI extends JFrame implements ActionListener, IColleague{
 		
 				    if((board.getPieceAt(i)).getType() == Board.SINGLE){
 						
-						temp = (JButton)possibleSquares.get(i); // show a blue single piece in that spot board
+						temp = (JButton)possibleTiles.get(i); // show a blue single piece in that spot board
 			
 						//get the picture from the web
 						try {
@@ -367,7 +366,7 @@ public class CheckerGUI extends JFrame implements ActionListener, IColleague{
 						    System.out.println(e.getMessage());
 						}
 				    } else if((board.getPieceAt(i)).getType() == Board.KING ){
-				    	temp = (JButton)possibleSquares.get(i);  //show a blue king piece in that spot board
+				    	temp = (JButton)possibleTiles.get(i);  //show a blue king piece in that spot board
 		
 						//get the picture formt the web
 						try{
@@ -383,7 +382,7 @@ public class CheckerGUI extends JFrame implements ActionListener, IColleague{
 				    // Check Single VS Kinged
 				    if((board.getPieceAt(i)).getType() == Board.SINGLE){
 		
-						temp = (JButton)possibleSquares.get(i);
+						temp = (JButton)possibleTiles.get(i);
 			
 						//get the picture from the web
 						try{
@@ -395,7 +394,7 @@ public class CheckerGUI extends JFrame implements ActionListener, IColleague{
 					
 				    }else if((board.getPieceAt(i)).getType() == Board.KING ){
 			
-						temp = (JButton)possibleSquares.get(i);
+						temp = (JButton)possibleTiles.get(i);
 			
 						//get the picture from the web
 						try{
@@ -408,7 +407,7 @@ public class CheckerGUI extends JFrame implements ActionListener, IColleague{
 				}
 		    }else {
 				//show no picture
-				temp = (JButton)possibleSquares.get(i);
+				temp = (JButton)possibleTiles.get(i);
 				temp.setIcon( null );
 		    }
 		}
