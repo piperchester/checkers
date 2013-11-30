@@ -285,8 +285,15 @@ public class CheckerGUI extends JFrame implements ActionListener, IColleague{
 			e.getActionCommand().equals( "60" ) ||
 			e.getActionCommand().equals( "62" ) ) {
 			
+		    	
+		    	
+		    	
+		    	
 			//call selectSpace with the button pressed
 			theFacade.selectSpace(Integer.parseInt(e.getActionCommand()));
+			
+			
+			
 			
 		    } else if(e.getActionCommand().equals("draw")){
 		    	invoker.invokeCommand(new DrawCommand(this));
