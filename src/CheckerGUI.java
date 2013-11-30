@@ -12,6 +12,7 @@ import java.awt.event.*;
 import java.awt.*;
 import java.util.*;
 import java.net.*;
+//import java.lang.Number.int;
 
 /**
  * Main GUI class. Serves as the interface for the board.
@@ -21,6 +22,8 @@ public class CheckerGUI extends JFrame implements ActionListener, IColleague{
     private static Facade theFacade; 
     private Vector<JButton> possibleSquares = new Vector<JButton>();
     private int timeRemaining;
+    
+    private JButton[] squares = new JButton[65];
     
     private JButton jButton1;
     private JButton jButton2;
@@ -175,6 +178,35 @@ public class CheckerGUI extends JFrame implements ActionListener, IColleague{
     private void initComponents() {
         
 	this.setResizable( false );
+	
+    PlayerOnelabel = new JLabel();
+    playerTwoLabel = new JLabel();
+    whosTurnLabel = new JLabel();
+    
+    warningLabel = new JLabel( );
+    timeRemainingLabel = new JLabel();
+    secondsLeftLabel = new JLabel();
+
+    ResignButton = new JButton();
+    ResignButton.addActionListener( this );
+	
+    DrawButton = new JButton();
+    DrawButton.addActionListener( this );
+      
+    //sets the layout and adds listener for closing window
+    getContentPane().setLayout(new GridBagLayout());
+    GridBagConstraints gridBagConstraints1;
+
+    //add window listener
+    addWindowListener(
+    		new WindowAdapter() { public void windowClosing(WindowEvent evt) { 
+    			exitForm(evt);
+        }});
+	
+	
+	
+	
+	
 	
         jButton1 = new JButton( );
         possibleSquares.add(jButton1);
@@ -432,31 +464,17 @@ public class CheckerGUI extends JFrame implements ActionListener, IColleague{
 	possibleSquares.add(jButton64);
         jButton64.addActionListener( this );
 	
-        PlayerOnelabel = new JLabel();
-        playerTwoLabel = new JLabel();
-	whosTurnLabel = new JLabel();
-        
-        warningLabel = new JLabel( );
-        timeRemainingLabel = new JLabel();
-        secondsLeftLabel = new JLabel();
-	
-        ResignButton = new JButton();
-        ResignButton.addActionListener( this );
 		
-        DrawButton = new JButton();
-        DrawButton.addActionListener( this );
-	      
-        //sets the layout and adds listener for closing window
-        getContentPane().setLayout(new GridBagLayout());
-	GridBagConstraints gridBagConstraints1;
-    
-	//add window listener
-	addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent evt) {
-                exitForm(evt);
-            }
-        }
-			  );
+    	for (int i = 0; i <= 64; i++){
+    		squares[i] = new JButton();
+    		possibleSquares.add(squares[i]);
+    		squares[i].addActionListener(this);
+    		
+    		squares[i].setPreferredSize(new Dimension(80, 80));
+    		squares[i].setActionCommand(Integer.toString(i));
+    		squares[i].setBackground(Color.white);
+    	}
+		
         
         jButton1.setPreferredSize(new Dimension(80, 80));
         jButton1.setActionCommand("0");
