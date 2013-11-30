@@ -1,4 +1,4 @@
-package checkers;
+
 
 import javax.swing.JOptionPane;
 

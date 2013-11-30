@@ -1,16 +1,4 @@
-package checkers;
-/**
- * Player.java
- *
- * Version:
- *    $Id: Player.java,v 1.1 2002/10/22 21:12:53 se362 Exp $
- *
- * Revisions:
- *    $Log: Player.java,v $
- *    Revision 1.1  2002/10/22 21:12:53  se362
- *    Initial creation of case study
- *
- */
+
 
 import java.awt.*;
 

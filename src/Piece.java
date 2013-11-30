@@ -1,16 +1,4 @@
-package checkers;
-/**
- * Piece.java
- *
- * Version:
- *   $Id: Piece.java,v 1.1 2002/10/22 21:12:53 se362 Exp $
- *
- * Revisions:
- *   $Log: Piece.java,v $
- *   Revision 1.1  2002/10/22 21:12:53  se362
- *   Initial creation of case study
- *
- */
+
 
 /**
  * Abstract class representing any piece that

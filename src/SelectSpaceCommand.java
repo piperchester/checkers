@@ -1,4 +1,4 @@
-package checkers;
+
 
 import java.awt.event.ActionEvent;
 

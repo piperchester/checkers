@@ -1,4 +1,4 @@
-package checkers;
+
 /** 
  * Governs methods implemented in all concrete command
  * classes for the command pattern.

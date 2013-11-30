@@ -1,16 +1,4 @@
-package checkers;
-/**
- * Rules.java
- *
- * Version:
- *    $Id: Rules.java,v 1.1 2002/10/22 21:12:53 se362 Exp $
- *
- * Revisions:
- *    $Log: Rules.java,v $
- *    Revision 1.1  2002/10/22 21:12:53  se362
- *    Initial creation of case study
- *
- */
+
 
 import java.util.*;
 import java.awt.*;

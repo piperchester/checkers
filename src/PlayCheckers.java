@@ -1,4 +1,4 @@
-package checkers;
+
 /**
  * The main class to run the game. Creates driver and first screen.
  *

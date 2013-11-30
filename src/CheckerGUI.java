@@ -1,19 +1,10 @@
-package checkers;
-/*
- * CheckerGUI.java
- * 
- * The actual board.
- *
- * Created on January 25, 2002, 2:34 PM
- *
- */
+
 
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
 import java.util.*;
 import java.net.*;
-//import java.lang.Number.int;
 
 /**
  * Main GUI class. Serves as the interface for the board.
@@ -59,14 +50,15 @@ public class CheckerGUI extends JFrame implements ActionListener, IColleague{
         invoker = new Invoker();
 
 
-	//long names mess up the way the GUI displays
-	//this code shortens the name if it is too long
+        // long names mess up the way the GUI displays
+        // this code shortens the name if it is too long
         String nameOne="", nameTwo="";
         if(name1.length() > 7 ){
             nameOne = name1.substring(0,7);
         }else{
             nameOne = name1;
         }
+        
         if(name2.length() > 7 ){
             nameTwo = name2.substring(0,7);
         }else{
@@ -77,13 +69,12 @@ public class CheckerGUI extends JFrame implements ActionListener, IColleague{
         playerTwosName = nameTwo;
         theFacade = facade;
 
-
         this.mediator = mediator;
         mediator.Register(this);
         
         this.requestActive(mediator);
         this.requestPassive(mediator);
-    try{
+        try{
         	theFacade.addActionListener(this);
         } catch( Exception e ){
             System.err.println( e.getMessage() );
@@ -99,7 +90,6 @@ public class CheckerGUI extends JFrame implements ActionListener, IColleague{
         initComponents();
         pack();
         update();
-        //updateTime();
     }
     
     /**
@@ -155,7 +145,13 @@ public class CheckerGUI extends JFrame implements ActionListener, IColleague{
     		
     		squares[i].setPreferredSize(new Dimension(80, 80));
     		squares[i].setActionCommand(Integer.toString(i));
-    		squares[i].setBackground(Color.white);
+    		
+    		// Alternate between white squares and off white squares.
+    		if (i % 2 == 0){
+    			squares[i].setBackground(Color.white);
+    		} else {
+    			squares[i].setBackground(new Color(204, 204, 153));
+    		}
     		
     		gridBagConstraints = new java.awt.GridBagConstraints();
     	
@@ -343,91 +339,81 @@ public class CheckerGUI extends JFrame implements ActionListener, IColleague{
      * @param the board
      */
     private void update(){
-	
-	
-	if( checkEndConditions() ){
-	    
-	    theFacade.showEndGame(" ");
-	}
-	//the board to read information from
-	Board board = theFacade.stateOfBoard();
-	//a temp button to work with
-	JButton temp =  new JButton();
-	
-	//go through the board
-	for( int i = 1; i < board.sizeOf(); i++ ){
-	    
-	    // if there is a piece there
-	    if( board.occupied( i ) ){
-		
-		//check to see if color is blue
-		if( board.colorAt( i ) == Color.blue ){
-
-		    //if there is a  single piece there
-		    if((board.getPieceAt(i)).getType() == board.SINGLE){
-
-			//show a blue single piece in that spot board
-			temp = (JButton)possibleSquares.get(i);
-
-			//get the picture from the web
-			try{
-			    temp.setIcon(
-			      new ImageIcon( new URL("file:BlueSingle.gif") ));
-			}catch( MalformedURLException e ){
-			    System.out.println(e.getMessage());
-			}
-
-			//if there is a kinged piece there
-		    }else if((board.getPieceAt(i)).getType() == board.KING ){
-
-			//show a blue king piece in that spot board
-			temp= (JButton)possibleSquares.get(i);
-
-			//get the picture formt the web
-			try{
-			    temp.setIcon(
-			      new ImageIcon(new URL("file:BlueKing.gif") ) );
-			}catch( Exception e ){}
-			
-		    }
-
-		    //check to see if the color is white        
-		}else if( board.colorAt( i ) == Color.white ){
-
-		    //if there is a single piece there
-		    if((board.getPieceAt(i)).getType() == board.SINGLE){
-
-			//show a blue single piece in that spot board
-			temp = (JButton)possibleSquares.get(i);
-
-			//get the picture from the web
-			try{
-			    temp.setIcon(
-			      new ImageIcon(new URL("file:WhiteSingle.gif")));
-			}catch( Exception e ){}
-			
-			//if there is a kinged piece there
-		    }else if((board.getPieceAt(i)).getType() == board.KING ){
-
-			//show a blue king piece in that spot board
-			temp = (JButton)possibleSquares.get(i);
-
-			//get the picture from the web
-			try{
-			    temp.setIcon(
-			      new ImageIcon(new URL("file:WhiteKing.gif") ) );
-			}catch( Exception e ){}
-		    }
-                                //if there isnt a piece there        
+		if( checkEndConditions() ){
+		    theFacade.showEndGame(" ");
 		}
-	    }else {
-		//show no picture
-		temp = (JButton)possibleSquares.get(i);
-		temp.setIcon( null );
-	    }
-	}
+		
+		
+		Board board = theFacade.stateOfBoard(); //the board to read information from
+		
+		JButton temp =  new JButton();  //a temp button to work with
+		
+		//go through the board
+		for( int i = 1; i < board.sizeOf(); i++ ){
+		    // if there is a piece there
+		    if( board.occupied( i ) ){
+			
+				//check to see if color is blue
+				if( board.colorAt( i ) == Color.blue ){
+		
+				    if((board.getPieceAt(i)).getType() == Board.SINGLE){
+						
+						temp = (JButton)possibleSquares.get(i); // show a blue single piece in that spot board
+			
+						//get the picture from the web
+						try {
+						    temp.setIcon(new ImageIcon(new URL("file:BlueSingle.gif")));
+						} catch( MalformedURLException e ){
+						    System.out.println(e.getMessage());
+						}
+				    } else if((board.getPieceAt(i)).getType() == Board.KING ){
+				    	temp = (JButton)possibleSquares.get(i);  //show a blue king piece in that spot board
+		
+						//get the picture formt the web
+						try{
+						    temp.setIcon(new ImageIcon(new URL("file:BlueKing.gif")));
+						} catch( Exception e ){
+							
+						}
+				    }
+		
+				// White piece check         
+				} else if( board.colorAt( i ) == Color.white ){
+		
+				    // Check Single VS Kinged
+				    if((board.getPieceAt(i)).getType() == Board.SINGLE){
+		
+						temp = (JButton)possibleSquares.get(i);
+			
+						//get the picture from the web
+						try{
+						    temp.setIcon(new ImageIcon(new URL("file:WhiteSingle.gif")));
+						}catch( Exception e ){
+							
+						}
+					
+					
+				    }else if((board.getPieceAt(i)).getType() == Board.KING ){
+			
+						temp = (JButton)possibleSquares.get(i);
+			
+						//get the picture from the web
+						try{
+						    temp.setIcon(
+						      new ImageIcon(new URL("file:WhiteKing.gif") ) );
+						}catch( Exception e ){
+							
+						}
+				    }
+				}
+		    }else {
+				//show no picture
+				temp = (JButton)possibleSquares.get(i);
+				temp.setIcon( null );
+		    }
+		}
 	
-	//this code updates whos turn it is
+	//this code updates whose turn it is
 	this.requestActive(mediator);
 	this.requestPassive(mediator);
 	if(activePlayer.getNumber() == 2 ){
@@ -439,7 +425,8 @@ public class CheckerGUI extends JFrame implements ActionListener, IColleague{
 	    playerTwoLabel.setForeground(Color.black );
 	    whosTurnLabel.setText( playerOnesName + "'s turn" );
 	}
-    }
+	
+}
     
     /**
      * Update the timer. If the time has run out but not in warning

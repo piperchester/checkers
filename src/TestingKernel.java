@@ -1,18 +1,4 @@
-package checkers;
-/**
- * TestingKernel.java
- *
- * Created on February 8, 2002, 1:09 PM
- *
- * Version:
- *   $Id: TestingKernel.java,v 1.1 2002/10/22 21:12:53 se362 Exp $
- *
- * Revisions:
- *   $Log: TestingKernel.java,v $
- *   Revision 1.1  2002/10/22 21:12:53  se362
- *   Initial creation of case study
- *
- */
+
 
 /**
  *  This class is the system's Testing Kernel.  For now it is hard 

@@ -1,16 +1,4 @@
-package checkers;
-/**
- * Facade.java
- *
- * Version	
- *   $Id: Facade.java,v 1.1 2002/10/22 21:12:52 se362 Exp $
- *
- * Revisions:
- *   $Log: Facade.java,v $
- *   Revision 1.1  2002/10/22 21:12:52  se362
- *   Initial creation of case study
- *
- */
+
 
 import java.awt.*;
 import java.awt.event.*;
