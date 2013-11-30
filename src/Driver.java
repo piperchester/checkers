@@ -240,7 +240,7 @@ public class Driver implements IColleague{
 		    mediator.setPassivePlayer(playerOne);
 		}
 		
-		theFacade.setPlayerModes();
+		theFacade.setPlayerModes(  );
     }
     
     /**

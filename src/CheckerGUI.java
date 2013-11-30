@@ -159,7 +159,7 @@ public class CheckerGUI extends JFrame implements ActionListener, IColleague{
     		if (gridBagConstraints.gridy % 2 == 0 && i % 2 == 0){
     			tiles[i].setBackground(Color.white);
     		} else {
-    			tiles[i].setBackground(new Color(204, 2034, 153));
+    			tiles[i].setBackground(Color.black);
     		}
     		
     		getContentPane().add(tiles[i], gridBagConstraints);
