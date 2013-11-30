@@ -4,37 +4,23 @@
  * The actual board.
  *
  * Created on January 25, 2002, 2:34 PM
- * 
- * Version
- * $Id: CheckerGUI.java,v 1.1 2002/10/22 21:12:52 se362 Exp $
- * 
- * Revisions
- * $Log: CheckerGUI.java,v $
- * Revision 1.1  2002/10/22 21:12:52  se362
- * Initial creation of case study
  *
  */
 
 import javax.swing.*;
-
 import java.awt.event.*;
 import java.awt.*;
 import java.util.*;
 import java.net.*;
 
 /**
- *
- * @author
- * @version 
+ * Main GUI class. Serves as the interface for the board.
  */
-
 public class CheckerGUI extends JFrame implements ActionListener, IColleague{
-    
-    //the facade for the game
-    
-    private static Facade theFacade; //the facade
-    private Vector possibleSquares = new Vector();//a vector of the squares
-    private int timeRemaining;//the time remaining
+   
+    private static Facade theFacade; 
+    private Vector<JButton> possibleSquares = new Vector<JButton>();
+    private int timeRemaining;
     
     private JButton jButton1;
     private JButton jButton2;
@@ -100,6 +86,7 @@ public class CheckerGUI extends JFrame implements ActionListener, IColleague{
     private JButton jButton62;
     private JButton jButton63;
     private JButton jButton64;
+    
     private JLabel PlayerOnelabel;
     private JLabel playerTwoLabel;
     private JLabel timeRemainingLabel;
@@ -116,9 +103,9 @@ public class CheckerGUI extends JFrame implements ActionListener, IColleague{
     //the names and time left
     private static String playerOnesName="", playerTwosName="", timeLeft="";
 
-    
     //the players
     private Player activePlayer, passivePlayer = null;
+    
     /** 
      *
      * Constructor, creates the GUI and all its components
@@ -128,12 +115,11 @@ public class CheckerGUI extends JFrame implements ActionListener, IColleague{
      * @param name2 the second players name
      *
      */
-
     public CheckerGUI( Facade facade, String name1, String name2, GameplayMediator mediator ) {
 
         super("Checkers");
         
-     invoker = new Invoker();
+        invoker = new Invoker();
 
 
 	//long names mess up the way the GUI displays
@@ -160,7 +146,6 @@ public class CheckerGUI extends JFrame implements ActionListener, IColleague{
         
         this.requestActive(mediator);
         this.requestPassive(mediator);
-        register();
     try{
         	theFacade.addActionListener(this);
         } catch( Exception e ){
@@ -180,18 +165,10 @@ public class CheckerGUI extends JFrame implements ActionListener, IColleague{
         //updateTime();
     }
     
-    
-    /*
-     * Tries to add an actionListener to the GUI.
-     */
-    private void register() {
-
-    }
-    
     /**
      * This method is called from within the constructor to
      * initialize the form. It initializes the components
-     * adds the buttons to the Vecotr of squares and adds
+     * adds the buttons to the Vector of squares and adds
      * an action listener to the components 
      *
      */
@@ -1489,5 +1466,4 @@ public class CheckerGUI extends JFrame implements ActionListener, IColleague{
 		mediator.getActivePlayer(this);
 		
 	}
-
-}//checkerGUI.java
+}
