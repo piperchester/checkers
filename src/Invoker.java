@@ -1,4 +1,4 @@
-package checkers;
+
 /**
  * Acts as an invoker in a command pattern.  This class handles 
  * the execution of the commands  used throughout the system. 

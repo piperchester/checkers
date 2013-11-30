@@ -1,16 +1,4 @@
-package checkers;
-/**
- * Timer.java
- *
- * Version:
- *    $Id: Timer.java,v 1.1 2002/10/22 21:12:53 se362 Exp $
- *
- * Revisions:
- *    $Log: Timer.java,v $
- *    Revision 1.1  2002/10/22 21:12:53  se362
- *    Initial creation of case study
- *
- */
+
 
 /**
  *  Timer runs on the separate thread, during simulation tells
