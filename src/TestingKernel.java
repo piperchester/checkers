@@ -46,6 +46,7 @@ public class TestingKernel extends java.lang.Object{
     public int    testTime  = 250;
     public String playerOne = "Joe";
     public String playerTwo = "Bob";
+    public static IMediator mediator = new GameplayMediator();
      
     /**
      * The main method.  
@@ -57,7 +58,7 @@ public class TestingKernel extends java.lang.Object{
      */
     public static void main( String args[] ){
         // Create the driver
-        Driver sampleDriver = new Driver();
+        Driver sampleDriver = new Driver(mediator);
         
         // Create the instance of the testing kernel.
         // Pass to it as a parameter the driver you just made.

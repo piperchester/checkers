@@ -24,8 +24,9 @@ class PlayCheckers{
 	* 
 	*/
     public static void main( String args[] ){
-		Driver theDriver = new Driver();
-		InitialScreen second = new InitialScreen(theDriver.getFacade(),  theDriver.getMediator());
+    	IMediator mediator = new GameplayMediator();
+		Driver theDriver = new Driver(mediator);
+		InitialScreen second = new InitialScreen(theDriver,  theDriver.getMediator());
 		second.show(); // Piper - Deprecated.
     }   
 }

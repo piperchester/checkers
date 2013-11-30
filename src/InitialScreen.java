@@ -29,7 +29,7 @@ public class InitialScreen extends JFrame
     implements ActionListener, ChangeListener {
     
     private Facade theFacade;
-    private int gameType;
+    private Driver theDriver;
     
     private Checkbox timedGameBox;
     private JLabel playerOneLabel;
@@ -49,10 +49,11 @@ public class InitialScreen extends JFrame
      *@param f the facade getting passed to to set options
      *@param type the type of game 
      */
-    public InitialScreen( Facade f, IMediator mediator ) {
+    public InitialScreen( Driver d, IMediator mediator ) {
 
         super( "Initial Player Setup" );
-        theFacade = f;
+        theDriver = d;
+        theFacade = d.getFacade();
         //gameType = type;
         this.mediator = mediator;
         initComponents ();
@@ -261,8 +262,8 @@ public class InitialScreen extends JFrame
 		    }
 		}
 		
-		theFacade.setPlayerName( 1, playerOneField.getText() );
-		theFacade.setPlayerName( 2, playerTwoField.getText() );
+		theDriver.createPlayer(1, playerOneField.getText());
+		theDriver.createPlayer(2, playerTwoField.getText());
 		
 		//if a timer is desired
 		if ( timedGameBox.isEnabled() ) {
@@ -295,8 +296,8 @@ public class InitialScreen extends JFrame
 		theFacade.startGame();
 		//hide this screen, make and show the GUI
 		this.hide();
-		CheckerGUI GUI = new CheckerGUI( theFacade, theFacade.getPlayerName( 1 ),
-						 theFacade.getPlayerName( 2 ), (GameplayMediator)mediator );
+		CheckerGUI GUI = new CheckerGUI( theFacade, playerOneField.getText(),
+				playerTwoField.getText(), (GameplayMediator)mediator );
 		GUI.show();
 		
 		//if they hit cancel go to the previous screen

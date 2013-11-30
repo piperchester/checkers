@@ -21,7 +21,7 @@ import java.net.*;
  * @author
  */
 
-public class Facade extends Component {
+public class Facade extends Component implements IColleague{
 
     public static int LOCALGAME  = 10000;
     public static int HOSTGAME   = 20000;
@@ -42,7 +42,7 @@ public class Facade extends Component {
     // The numbers associated with the timer
     private int timer       = 999;
     private int warningTime = 999;
-    
+    private IMediator mediator;
     private ActionListener actionListener;
       
     /**
@@ -55,6 +55,10 @@ public class Facade extends Component {
     public Facade( Board newBoard, Driver newDriver ){
     	theBoard = newBoard;
     	theDriver = newDriver;
+    	mediator = theDriver.getMediator(); 
+    	mediator.Register(this);
+    	this.requestActive(mediator);
+    	this.requestPassive(mediator);
     }
     
     /**
@@ -62,6 +66,8 @@ public class Facade extends Component {
      * ( e.g. 1 for player 1 )
      */
     public int whosTurn(){
+    	this.requestActive(mediator);
+    	this.requestPassive(mediator);
     	return activePlayer.getNumber();
     }
     
@@ -72,6 +78,8 @@ public class Facade extends Component {
      * @param passive The passive player
      */
     public void setPlayerModes( Player active, Player passive ){
+    	this.requestActive(mediator);
+    	this.requestPassive(mediator);
     	activePlayer = active;
     	passivePlayer = passive;
 	
@@ -118,6 +126,8 @@ public class Facade extends Component {
      */
     private void makeLocalMove(){
 		//make sure startSpace and endSpace are defined
+    	this.requestActive(mediator);
+    	this.requestPassive(mediator);
 		if( startSpace != 99 && endSpace!= 99 ){
 		    // Takes the information of a move and calls makeMove() in a localplayer
 		    boolean result = activePlayer.makeMove( startSpace, endSpace );
@@ -137,6 +147,8 @@ public class Facade extends Component {
      * @return string    the name associated with playerNum
      */
     public String getPlayerName( int playerNum ){
+    	this.requestActive(mediator);
+    	this.requestPassive(mediator);
 		try{
 		    // Checks to see that playerNum is valid
 		    if( playerNum == 1 || playerNum == 2 ){
@@ -273,14 +285,47 @@ public class Facade extends Component {
     public void startGame(){
     	theDriver.startGame();
     }
+
+	@Override
+	public void SendMessage(IMediator mediator, String message) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void requestPlayerName(IMediator mediator) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void ReceiveMessage(String message) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void RecieveActivePlayer(Player p) {
+		activePlayer = p;
+		
+	}
+
+	@Override
+	public void RecievePassivePlayer(Player p) {
+		passivePlayer = p;
+		
+	}
+
+	@Override
+	public void requestPassive(IMediator mediator) {
+		mediator.getPassivePlayer(this);
+		
+	}
+
+	@Override
+	public void requestActive(IMediator mediator) {
+		mediator.getActivePlayer(this);
+		
+	}
     
-    /**
-     * Create a player with the given type and player number.
-     *
-     * @param num  Int for player number (either 1 or 2)
-     * @param type Int for type of player (Local, network, etc.)
-     */
-    public void createPlayer( int num, int type ) {
-    	theDriver.createPlayer( num, "UnNamedPlayer" );
-    }
 }

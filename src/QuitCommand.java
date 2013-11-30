@@ -57,4 +57,29 @@ public class QuitCommand implements ICommand, IColleague {
 	public void ReceiveMessage(String message) {
 		pName = message;
 	}
+
+
+	@Override
+	public void requestPassive(IMediator mediator) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void requestActive(IMediator mediator) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void RecieveActivePlayer(Player p) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void RecievePassivePlayer(Player p) {
+		// TODO Auto-generated method stub
+		
+	}
 }

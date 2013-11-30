@@ -35,22 +35,36 @@ public class GameplayMediator implements IMediator {
 		sender.ReceiveMessage(activePlayer.getName());
 	}
 
-	public Player getActivePlayer() {
-		return activePlayer;
-	}
 	
 	@Override
 	public void setActivePlayer(Player activePlayer) {
 		this.activePlayer = activePlayer;
 	}
 
-	public Player getPassivePlayer() {
-		return passivePlayer;
-	}
 
 	@Override
 	public void setPassivePlayer(Player passivePlayer) {
 		this.passivePlayer = passivePlayer;
+	}
+
+	@Override
+	public void getPassivePlayer(IColleague sender) {
+		sender.RecievePassivePlayer(passivePlayer);
+		
+	}
+
+	@Override
+	public void getActivePlayer(IColleague sender) {
+		sender.RecieveActivePlayer(activePlayer);
+	}
+
+	@Override
+	public void switchPlayers() {
+		Player temp = null;
+		temp = activePlayer;
+		activePlayer = passivePlayer;
+		passivePlayer = temp;
+		
 	}
 	
 

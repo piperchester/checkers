@@ -11,4 +11,13 @@ public interface IColleague {
     void requestPlayerName(IMediator mediator);
 
     void ReceiveMessage(String message);
+    
+    void RecieveActivePlayer(Player p);
+    
+    void RecievePassivePlayer(Player p);
+    
+    void requestPassive(IMediator mediator);
+    
+    void requestActive(IMediator mediator);
+    
 }

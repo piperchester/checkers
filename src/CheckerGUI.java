@@ -28,7 +28,7 @@ import java.net.*;
  * @version 
  */
 
-public class CheckerGUI extends JFrame implements ActionListener{
+public class CheckerGUI extends JFrame implements ActionListener, IColleague{
     
     //the facade for the game
     
@@ -116,6 +116,9 @@ public class CheckerGUI extends JFrame implements ActionListener{
     //the names and time left
     private static String playerOnesName="", playerTwosName="", timeLeft="";
 
+    
+    //the players
+    private Player activePlayer, passivePlayer = null;
     /** 
      *
      * Constructor, creates the GUI and all its components
@@ -131,6 +134,7 @@ public class CheckerGUI extends JFrame implements ActionListener{
         super("Checkers");
         
      invoker = new Invoker();
+
 
 	//long names mess up the way the GUI displays
 	//this code shortens the name if it is too long
@@ -152,6 +156,10 @@ public class CheckerGUI extends JFrame implements ActionListener{
 
 
         this.mediator = mediator;
+        mediator.Register(this);
+        
+        this.requestActive(mediator);
+        this.requestPassive(mediator);
         register();
     try{
         	theFacade.addActionListener(this);
@@ -1217,10 +1225,6 @@ public class CheckerGUI extends JFrame implements ActionListener{
 	    	// Call invoker to execute from QuitCommand
 	    	invoker.invokeCommand(new QuitCommand(this, mediator));	
 	    
-		//if the source came from the facade
-	    }else if( e.getSource().equals( theFacade ) ) {
-
-	    	invoker.invokeCommand(new QuitCommand(this, mediator));	
 	    } else if(e.getActionCommand().equals("resign" )) {
 	    	invoker.invokeCommand(new QuitCommand(this, mediator));	
 		
@@ -1348,11 +1352,13 @@ public class CheckerGUI extends JFrame implements ActionListener{
 	}
 	
 	//this code updates whos turn it is
-	if(theFacade.whosTurn() == 2 ){
+	this.requestActive(mediator);
+	this.requestPassive(mediator);
+	if(activePlayer.getNumber() == 2 ){
 	    playerTwoLabel.setForeground( Color.red );
 	    PlayerOnelabel.setForeground(Color.black );
 	    whosTurnLabel.setText( playerTwosName + "'s turn ");
-	}else if( theFacade.whosTurn() == 1 ){
+	}else if(activePlayer.getNumber() == 1 ){
 	    PlayerOnelabel.setForeground( Color.red );
 	    playerTwoLabel.setForeground(Color.black );
 	    whosTurnLabel.setText( playerOnesName + "'s turn" );
@@ -1434,5 +1440,54 @@ public class CheckerGUI extends JFrame implements ActionListener{
             return retVal;
             
         }//checkEndConditions
+
+
+	@Override
+	public void SendMessage(IMediator mediator, String message) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void requestPlayerName(IMediator mediator) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void ReceiveMessage(String message) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void RecieveActivePlayer(Player p) {
+		activePlayer = p;
+		
+	}
+
+
+	@Override
+	public void RecievePassivePlayer(Player p) {
+		passivePlayer = p;
+		
+	}
+
+
+	@Override
+	public void requestPassive(IMediator mediator) {
+		mediator.getPassivePlayer(this);
+		
+	}
+
+
+	@Override
+	public void requestActive(IMediator mediator) {
+		mediator.getActivePlayer(this);
+		
+	}
 
 }//checkerGUI.java

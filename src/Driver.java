@@ -37,7 +37,7 @@ public class Driver {
     private Timer   theTimer;
     private Facade  theFacade;
     private Rules   theRules;
-    private IMediator mediator = new GameplayMediator();
+    private IMediator mediator;
     
     /**
      * Constructor
@@ -45,12 +45,11 @@ public class Driver {
      * Create the driver, which in turn creates the rest of 
      * the system.
      */
-    public Driver(){    
+    public Driver(IMediator mediator){    
+    	this.mediator = mediator;
 		Board theBoard = new Board();
 		theRules = new Rules( theBoard, this ); // Create the rules passing in the board
 		theFacade = new Facade( theBoard, this ); // Create the facade and GUI
-		theFacade.createPlayer( 1, theFacade.LOCALGAME );
-		theFacade.createPlayer( 2, theFacade.LOCALGAME );
     }
     
     /**
@@ -60,6 +59,11 @@ public class Driver {
      */
     public Facade getFacade(){
     	return theFacade;
+    }
+    
+    
+    public void setMediator(IMediator m){
+    	mediator = m;
     }
     
     /**
@@ -112,7 +116,7 @@ public class Driver {
 		
     }
     
-
+	
     
     /**
      * Ends the game due to a draw, someone quitting, or a victory.
@@ -149,6 +153,7 @@ public class Driver {
 
 		temp = new Player( num, theRules, this );
 		temp.setName( name );
+		
 		
 		// TODO: Ternary
 		if ( num == 1 ) {
@@ -250,19 +255,12 @@ public class Driver {
 		
 		// Tell player with the correct color to make a move
 		if ( playerOne.getColor() == Color.white ) {
-		    activePlayer  = playerOne;
-		    passivePlayer = playerTwo;
+		    mediator.setActivePlayer(playerOne);
+		    mediator.setPassivePlayer(playerTwo);
 		} else {
-		    activePlayer  = playerTwo;
-		    passivePlayer = playerOne;
+		    mediator.setActivePlayer(playerTwo);
+		    mediator.setPassivePlayer(playerOne);
 		}
-    	mediator.Register(playerOne);
-    	mediator.Register(playerTwo);
-    	mediator.Register(activePlayer);
-    	mediator.setActivePlayer(activePlayer);
-    	playerOne.SendMessage(mediator, "test");
-	
-		
 		theFacade.setPlayerModes( activePlayer, passivePlayer );
     }
     

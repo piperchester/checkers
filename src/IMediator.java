@@ -19,5 +19,11 @@ public interface IMediator {
     void setActivePlayer(Player activePlayer);
     
     void setPassivePlayer(Player passivePlayer);
+    
+    void getPassivePlayer(IColleague sender);
+    
+    void getActivePlayer(IColleague sender);
+    
+    void switchPlayers();
 	
 }

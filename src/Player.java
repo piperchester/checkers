@@ -23,7 +23,7 @@ import javax.swing.JOptionPane;
 *  @author
 */
 
-public class Player implements IColleague {
+public class Player {
     
     // Instance of the rules class which will be used to
     // validate moves and check for game ending conditions
@@ -163,22 +163,5 @@ public class Player implements IColleague {
         return ("Player.  name = " + playerName);
     }
 
-	@Override
-	public void SendMessage(IMediator mediator, String message) {
-		mediator.DistributeMessage(this, message);
-		
-	}
-
-	@Override
-	public void ReceiveMessage(String message) {
-		System.out.println(this.getName() + " received " + message);
-		
-	}
-
-	@Override
-	public void requestPlayerName(IMediator mediator) {
-		// TODO Auto-generated method stub
-		
-	}
     
 }//Player.java
