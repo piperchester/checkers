@@ -1,4 +1,5 @@
 import javax.swing.*;
+
 import java.awt.event.*;
 import java.awt.*;
 import java.util.*;
@@ -159,7 +160,7 @@ public class CheckerGUI extends JFrame implements ActionListener, IColleague{
     		if (gridBagConstraints.gridy % 2 == 0 && i % 2 == 0){
     			tiles[i].setBackground(Color.white);
     		} else {
-    			tiles[i].setBackground(Color.black);
+    			tiles[i].setBackground(new Color(204, 204, 153));
     		}
     		
     		getContentPane().add(tiles[i], gridBagConstraints);
