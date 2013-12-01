@@ -1,18 +1,12 @@
-
-
 import java.awt.*;
 import java.awt.event.*;
 
 /**
- *  
- *
- *  @invariant all variables have valid values
- *
- *  @author
+ * Creates Notifier. Adds actionListener.
  */
 public class Notifier extends Component {
-
-    public final static String TIME_UPDATE = "time update";
+ 
+	public final static String TIME_UPDATE = "time update";
     String ID;                       // The ID of this object
     ActionListener actionListener;   // registered actionlistener objects
    
@@ -22,32 +16,24 @@ public class Notifier extends Component {
      * @param ID the id of this object
      */
     public Notifier( String ID ) {
-
 		this.ID = ID;
-
     }
    
     /**
-     * Other objects register to be notified by this notifier
+     * Other objects register to be notified by this notifier. Generate
+     * action listener for this event.
      *
      * @param listener the listener to be added
      */
     public void addActionListener( ActionListener listener ) {
-		
-		// generate action listener for this event
         actionListener = AWTEventMulticaster.add( actionListener, listener );
-    
     }
 
     /**
-     * Timer calls this method to fire a Timer event
+     * Timer calls this method to fire a Timer event. Generate
+     * action based on the notifier.
      */
     public void generateActionPerformed() {
-	
-	    // generate ne waction based on the notifier
-        actionListener.actionPerformed(
-			new ActionEvent ( this, ActionEvent.ACTION_PERFORMED, ID ) );
-
+        actionListener.actionPerformed(new ActionEvent (this, ActionEvent.ACTION_PERFORMED, ID));
     }
-
 }
