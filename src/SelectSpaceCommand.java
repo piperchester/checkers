@@ -3,13 +3,15 @@
  * 
  * @author piperchester
  */
-public class SelectSpaceCommand implements ICommand {
+public class SelectSpaceCommand implements ICommand, IColleague {
 	
 	private GameplayMediator mediator;
 	private CheckerGUI receiver;
 	private int startSpace;
 	private int endSpace;
 	private int space;
+	private Player passivePlayer;
+	private Player activePlayer;
 
 	/**
 	 * Single Arg constructor provides the receiver for the command
@@ -19,6 +21,7 @@ public class SelectSpaceCommand implements ICommand {
 		this.receiver = receiver;
 		this.mediator = mediator;
 		this.space = space;
+		mediator.Register(this);
 		
 		startSpace = 99;
 		endSpace = 99;
@@ -45,8 +48,8 @@ public class SelectSpaceCommand implements ICommand {
     			
     			// TODO: Not sure what to do with Mediator here 
 				// make sure startSpace and endSpace are defined
-		    	// this.requestActive(mediator);
-		    	//this.requestPassive(mediator);
+		    	this.requestActive(mediator);
+		    	this.requestPassive(mediator);
     			
     			// TODO: Get activePlayer from Mediator?
 				if( startSpace != 99 && endSpace!= 99 ){
@@ -67,5 +70,47 @@ public class SelectSpaceCommand implements ICommand {
 
 		// Update the receiver with the new values if need be
 		// receiver.setImageIndexing(interval, index);
+	}
+
+	@Override
+	public void SendMessage(IMediator mediator, String message) {
+		//Intentionally left blank
+		
+	}
+
+	@Override
+	public void requestPlayerName(IMediator mediator) {
+		//Intentionally left blank
+		
+	}
+
+	@Override
+	public void ReceiveMessage(String message) {
+		//Intentionally left blank
+		
+	}
+
+	@Override
+	public void RecieveActivePlayer(Player p) {
+		activePlayer = p;
+		
+	}
+
+	@Override
+	public void RecievePassivePlayer(Player p) {
+		passivePlayer = p;
+		
+	}
+
+	@Override
+	public void requestPassive(IMediator mediator) {
+		mediator.getPassivePlayer(this);
+		
+	}
+
+	@Override
+	public void requestActive(IMediator mediator) {
+		mediator.getActivePlayer(this);
+		
 	}
 }
