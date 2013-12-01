@@ -95,15 +95,20 @@ public class Driver implements IColleague{
 			    // Inform the other player to make a move and tell facade to 
 				// update any listening GUIs and reset the timer
 			    
+			    }
+			}else if (passivePlayer == player){
+		
+				
 				mediator.switchPlayers();
 				this.requestActive(mediator);
 				this.requestPassive(mediator);
 				
 			    theFacade.setPlayerModes();
-		    }
+			}
+		    
 		}
 		
-    }
+    
     
 	
     
@@ -239,7 +244,8 @@ public class Driver implements IColleague{
 		    mediator.setActivePlayer(playerTwo);
 		    mediator.setPassivePlayer(playerOne);
 		}
-		
+		this.requestActive(mediator);
+		this.requestPassive(mediator);
 		theFacade.setPlayerModes(  );
     }
     
