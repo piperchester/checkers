@@ -157,12 +157,20 @@ public class CheckerGUI extends JFrame implements ActionListener, IColleague{
     		
     		// As soon as the row increases, alternate the colors differently.
     		// Even row, even X values for white and vice versa.
-    		if (gridBagConstraints.gridy % 2 == 0 && i % 2 == 0){
-    			tiles[i].setBackground(Color.white);
+    		if (gridBagConstraints.gridy % 2 == 0){
+    			if(i%2==0){
+	    			tiles[i-1].setBackground(new Color(204, 204, 153));
+	    		} else { 
+	    			tiles[i-1].setBackground(Color.white);
+	    		}
     		} else {
-    			tiles[i].setBackground(new Color(204, 204, 153));
+    			if(i%2==0){
+	    			tiles[i].setBackground(new Color(204, 204, 153));
+	    		} else { 
+	    			tiles[i].setBackground(Color.white);
+	    		}
     		}
-    		
+	    		
     		getContentPane().add(tiles[i], gridBagConstraints);
     	}
 	
