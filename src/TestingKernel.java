@@ -177,12 +177,12 @@ public class TestingKernel extends java.lang.Object{
         // Make the proper calls to make sure the pieces are now 
         // in the correct location and have been removed from their 
         // previous spots.
-        if ( testBoard.occupied( 19 ) ){ 
+        if ( testBoard.isOccupied( 19 ) ){ 
             basMoveTest = false;
             System.out.println( "Did not remove the piece from 19." );
         }
         
-        if( !testBoard.occupied( 26 ) ){
+        if( !testBoard.isOccupied( 26 ) ){
             basMoveTest = false;
             System.out.println( "Did not move the piece to 26." );
         }
@@ -226,7 +226,7 @@ public class TestingKernel extends java.lang.Object{
                 
         // Piece should not have moved.  Control of the board should be
         // retained.  Check for those conditions.
-        if( !testBoard.occupied( 46 ) ){ 
+        if( !testBoard.isOccupied( 46 ) ){ 
             System.out.println( "Incorrectly removed piece from 46." );
             boundaryTest = false; 
         }
@@ -270,7 +270,7 @@ public class TestingKernel extends java.lang.Object{
             
         testBoard = testFacade.stateOfBoard();
         
-        if(!testBoard.occupied( 26 ) ){
+        if(!testBoard.isOccupied( 26 ) ){
             System.out.println( "Incorrectly removed piece from 26." );
             forceJumpTest = false;
         }
@@ -287,13 +287,13 @@ public class TestingKernel extends java.lang.Object{
               
         testBoard = testFacade.stateOfBoard();
         
-        if( testBoard.occupied( 26 ) ){
+        if( testBoard.isOccupied( 26 ) ){
             System.out.println( "Did not move piece from 26." );
             forceJumpTest = false;
-        }else if( testBoard.occupied( 33 ) ){
+        }else if( testBoard.isOccupied( 33 ) ){
             System.out.println( "Did not removed jumped piece from 33." );
             forceJumpTest = false; 
-        }else if( !testBoard.occupied( 40 ) ){ 
+        }else if( !testBoard.isOccupied( 40 ) ){ 
             System.out.println( "Did not move piece to 40." );
             forceJumpTest = false;
         }
@@ -376,10 +376,10 @@ public class TestingKernel extends java.lang.Object{
         simpleWait();
         testBoard = testFacade.stateOfBoard();
         
-        if( testBoard.occupied( 28 ) ){
+        if( testBoard.isOccupied( 28 ) ){
             System.out.println( "Did not remove piece from 28" );
             multJumpTest = false;
-        }else if( !testBoard.occupied( 21 ) ){
+        }else if( !testBoard.isOccupied( 21 ) ){
             System.out.println( "Did not move piece to 21" );
             multJumpTest = false;
         }
@@ -400,10 +400,10 @@ public class TestingKernel extends java.lang.Object{
         simpleWait();
         testBoard = testFacade.stateOfBoard();
         
-        if( testBoard.occupied( 14 ) ){
+        if( testBoard.isOccupied( 14 ) ){
             System.out.println( "Did not remove piece from 14." );
             multJumpTest = false;
-        }else if( !testBoard.occupied( 7 )){
+        }else if( !testBoard.isOccupied( 7 )){
             System.out.println( "Did not move piece to 7." );
             multJumpTest = false;
         }
@@ -438,7 +438,7 @@ public class TestingKernel extends java.lang.Object{
         simpleWait();
         testBoard = testFacade.stateOfBoard();
         
-        if( !testBoard.occupied( 23 ) ){
+        if( !testBoard.isOccupied( 23 ) ){
             System.out.println( "Incorrectly removed piece from 23." );
             invMoveTest = false;
         }
@@ -457,7 +457,7 @@ public class TestingKernel extends java.lang.Object{
         simpleWait();
         testBoard = testFacade.stateOfBoard();
         
-        if( !testBoard.occupied( 8 ) ){
+        if( !testBoard.isOccupied( 8 ) ){
             System.out.println( "Incorrectly removed piece from 8" );
             invMoveTest = false;
         }
@@ -476,13 +476,13 @@ public class TestingKernel extends java.lang.Object{
         simpleWait();
         testBoard = testFacade.stateOfBoard();
         
-        if( !testBoard.occupied( 1 ) ){
+        if( !testBoard.isOccupied( 1 ) ){
             System.out.println( "Incorrectly moved piece from 1" );
             invMoveTest = false;
-        }else if( !testBoard.occupied( 10 ) ){
+        }else if( !testBoard.isOccupied( 10 ) ){
             System.out.println( "Incorrectly removed piece from 10." );
             invMoveTest = false;
-        }else if( testBoard.occupied( 19 ) ){
+        }else if( testBoard.isOccupied( 19 ) ){
             System.out.println( "Incorrectly moved piece to 19." );
             invMoveTest = false;
         }
@@ -503,10 +503,10 @@ public class TestingKernel extends java.lang.Object{
         simpleWait();
         testBoard = testFacade.stateOfBoard();
         
-        if( !testBoard.occupied( 5 ) ){
+        if( !testBoard.isOccupied( 5 ) ){
             System.out.println( "Incorrectly moved piece from 5." );
             invMoveTest = false;
-        }else if( testBoard.occupied( 37 ) ){
+        }else if( testBoard.isOccupied( 37 ) ){
             System.out.println( "Incorrectly moved piece to 37." );
             invMoveTest = false;
         }
@@ -527,10 +527,10 @@ public class TestingKernel extends java.lang.Object{
         simpleWait();
         testBoard = testFacade.stateOfBoard();
        
-        if( !testBoard.occupied( 40 ) ){
+        if( !testBoard.isOccupied( 40 ) ){
             System.out.println( "Incorrectly moved piece from 40." );
             invMoveTest = false;
-        }else if( testBoard.occupied( 33 ) ){
+        }else if( testBoard.isOccupied( 33 ) ){
             System.out.println( "Incorrectly moved piece to 33." );
             invMoveTest = false;
         }
@@ -552,10 +552,10 @@ public class TestingKernel extends java.lang.Object{
         simpleWait();
         testBoard = testFacade.stateOfBoard();
       
-        if( !testBoard.occupied( 19 ) ){
+        if( !testBoard.isOccupied( 19 ) ){
             System.out.println( "Did not move piece to 19." );
             invMoveTest = false;
-        }else if( testBoard.occupied( 10 ) ){
+        }else if( testBoard.isOccupied( 10 ) ){
             System.out.println( "Did not move piece from 10." );
             invMoveTest = false;
         }

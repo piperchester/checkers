@@ -366,10 +366,10 @@ public class CheckerGUI extends JFrame implements ActionListener, IColleague{
 		//go through the board
 		for( int i = 1; i < board.sizeOf(); i++ ){
 		    // if there is a piece there
-		    if( board.occupied( i ) ){
+		    if( board.isOccupied( i ) ){
 			
 				//check to see if color is blue
-				if( board.colorAt( i ) == Color.blue ){
+				if( board.getPieceColorAtSpace( i ) == Color.blue ){
 		
 				    if((board.getPieceAt(i)).getType() == Board.SINGLE){
 						
@@ -393,7 +393,7 @@ public class CheckerGUI extends JFrame implements ActionListener, IColleague{
 				    }
 		
 				// White piece check         
-				} else if( board.colorAt( i ) == Color.white ){
+				} else if( board.getPieceColorAtSpace( i ) == Color.white ){
 		
 				    // Check Single VS Kinged
 				    if((board.getPieceAt(i)).getType() == Board.SINGLE){
@@ -491,7 +491,7 @@ public class CheckerGUI extends JFrame implements ActionListener, IColleague{
 		//go through all the spots on the board
 		for( int i=1; i<temp.sizeOf(); i++ ){
 		    //if there is a piece there
-		    if( temp.occupied( i  ) ){
+		    if( temp.isOccupied( i  ) ){
 			//if its a blue piece there
 			if( (temp.getPieceAt( i )).getColor() == Color.blue ){
 			    // increment number of blues

@@ -1,29 +1,13 @@
-
-/**
- * Board.java
- *
- * Version:
- *     $Id: Board.java,v 1.1 2002/10/22 21:12:52 se362 Exp $
- *
- * Revisions:
- *     $Log: Board.java,v $
- *     Revision 1.1  2002/10/22 21:12:52  se362
- *     Initial creation of case study
- *
- */
 import java.util.*;
 import java.awt.*;
 
 /**
  *  The board. Holds a collection of pieces.
  *
- *  @invariant all variables have valid values
- *
- *  @author
  */
 public class Board {
 
-   private Piece pieces[]; // the pieces that are on the board
+   private Piece pieces[];
    public static int SINGLE = 0;
    public static int KING = 1;
    final private int MAX_BOARD_SIZE = 64;
@@ -73,7 +57,7 @@ public class Board {
     * @return -1 if there is a piece in the end position, 0 otherwise.
     */
    public int movePiece(int start, int end) {
-	   if( occupied( end ) ) {
+	   if (isOccupied(end)) {
 	   	   return -1;
 	   } else {
 		   pieces[end] = pieces[start];
@@ -90,7 +74,7 @@ public class Board {
     * 
     * @return true if space is occupied, false otherwise
     */
-   public boolean occupied(int space) {
+   public boolean isOccupied(int space) {
 	   return ( space >= 1 && space <= 63 && pieces[space] == null ) ? false : true;
    }
 
@@ -101,7 +85,7 @@ public class Board {
     * @param space - the positon of the piece to be removed
     */
    public void removePiece(int space) {
-	   pieces[ space ] = null;
+	   pieces[space] = null;
    }
    
    
@@ -119,14 +103,14 @@ public class Board {
    
    /**
     * Returns the color of the piece at a certain space. If no piece
-    * exists at space in board, reutrn null.
+    * exists at space in board, return null.
     * 
     * @param space - the position of the piece on the board
     * 
     * @return the color of this piece if piece exists, else null.
     */
-   public Color colorAt(int space) {   
-	   return occupied(space) ? pieces[space].getColor() : null;
+   public Color getPieceColorAtSpace(int space) {   
+	   return isOccupied(space) ? pieces[space].getColor() : null;
    }
    
 
@@ -142,7 +126,7 @@ public class Board {
 	   Piece returnValue = new SinglePiece(Color.red);
 	   
 	   try{
-	      if( occupied(  space ) ) {
+	      if(isOccupied(space)) {
 	   	   	   returnValue = pieces[space];
 	   	   }
 	   
@@ -162,7 +146,7 @@ public class Board {
     * 
     * @return true if a piece of color left on the board, else false
     */
-   public boolean hasPieceOf( Color color) {
+   public boolean boardContainsPiece( Color color) {
 	   for( int i = 1; i < pieces.length; i++ ) {
 	   	   if( pieces[i] != null && pieces[i].getColor() == color ) {
    	   	   	   i = pieces.length;
@@ -188,13 +172,13 @@ public class Board {
     * 
     * @return blue pieces on the board
     */
-   public Vector bluePieces() {
+   public Vector<Piece> getBluePieces() {
    
-      Vector bluePieces = new Vector();
+      Vector<Piece> bluePieces = new Vector<Piece>();
       
-      for ( int i = 0; i < MAX_BOARD_SIZE; i++ ) {
-          if ( occupied( i ) ) {
-              if ( pieces[ i ].getColor() == Color.blue ) {
+      for (int i = 0; i < MAX_BOARD_SIZE; i++) {
+          if (isOccupied(i)) {
+              if (pieces[ i ].getColor() == Color.blue) {
                   bluePieces.addElement( pieces[ i ] );
               }
           }                 
@@ -209,18 +193,17 @@ public class Board {
     * 
     * @return white pieces on the board
     */
-  public Vector whitePieces() {
+  public Vector<Piece> getWhitePieces() {
+      Vector<Piece> whitePieces = new Vector<Piece>();
       
-      Vector whitePieces = new Vector();
-      
-      for ( int i = 0; i < MAX_BOARD_SIZE; i++ ) {
-          if ( occupied( i ) ) {
-              if ( pieces[ i ].getColor() == Color.white ) {
-                  whitePieces.addElement( pieces[ i ] );
+      for (int i = 0; i < MAX_BOARD_SIZE; i++) {
+          if ( isOccupied(i) ) {
+              if (pieces[i].getColor() == Color.white) {
+                  whitePieces.addElement(pieces[i]);
               }
           }                 
       }
       
       return whitePieces;
- }
+  }
 }
