@@ -1,7 +1,4 @@
-
-
 import java.awt.*;
-import java.util.*;
 
 /**
  * Represents a piece that has not been kinged yet.

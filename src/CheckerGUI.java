@@ -16,22 +16,19 @@ public class CheckerGUI extends JFrame implements ActionListener, IColleague{
     private JButton[] tiles = new JButton[65];  // Array that holds 64 buttons, serving as the board squares
     
     private int timeRemaining;
-    private JLabel PlayerOnelabel;
-    private JLabel playerTwoLabel;
+    private JLabel player1Label;
+    private JLabel player2Label;
     private JLabel timeRemainingLabel;
     private JLabel secondsLeftLabel;
-    private JButton ResignButton;
-    private JButton DrawButton;
+    private JButton resignButton;
+    private JButton drawButton;
     private JLabel warningLabel, whosTurnLabel;
     
-    private GameplayMediator mediator;
-    private Invoker invoker; // Invoker of commands for Command Pattern
+    private static String player1Name, player2Name, timeLeft = "";
+    private Player activePlayer;
     
-    //the names and time left
-    private static String playerOnesName="", playerTwosName="", timeLeft="";
-
-    //the players
-    private Player activePlayer, passivePlayer = null;
+    private GameplayMediator mediator;
+    private Invoker invoker;
     
     /** 
      *
@@ -47,25 +44,10 @@ public class CheckerGUI extends JFrame implements ActionListener, IColleague{
         super("Checkers");
         
         invoker = new Invoker();
-
-
-        // long names mess up the way the GUI displays
-        // this code shortens the name if it is too long
-        String nameOne="", nameTwo="";
-        if(name1.length() > 7 ){
-            nameOne = name1.substring(0,7);
-        }else{
-            nameOne = name1;
-        }
         
-        if(name2.length() > 7 ){
-            nameTwo = name2.substring(0,7);
-        }else{
-            nameTwo = name2;
-        }
-                
-        playerOnesName = nameOne;
-        playerTwosName = nameTwo;
+        player1Name = name1.length() > 7 ? name1.substring(0, 7) : name1;
+        player2Name = name2.length() > 7 ? name2.substring(0, 7) : name2;
+        
         theFacade = facade;
 
         this.mediator = mediator;
@@ -73,12 +55,6 @@ public class CheckerGUI extends JFrame implements ActionListener, IColleague{
         
         this.requestActive(mediator);
         this.requestPassive(mediator);
-        try{
-        	theFacade.addActionListener(this);
-        } catch( Exception e ){
-            System.err.println( e.getMessage() );
-        }
-
         
         try{
         	theFacade.addActionListener(this);
@@ -99,31 +75,28 @@ public class CheckerGUI extends JFrame implements ActionListener, IColleague{
      *
      */
     private void initComponents() {
-        
-	this.setResizable( false );
+	        
+		this.setResizable( false );
+		
+	    player1Label = new JLabel();
+	    player2Label = new JLabel();
+	    whosTurnLabel = new JLabel();
+	    
+	    warningLabel = new JLabel( );
+	    timeRemainingLabel = new JLabel();
+	    secondsLeftLabel = new JLabel();
 	
-    PlayerOnelabel = new JLabel();
-    playerTwoLabel = new JLabel();
-    whosTurnLabel = new JLabel();
+	    resignButton = new JButton();
+	    resignButton.addActionListener( this );
+		
+	    drawButton = new JButton();
+	    drawButton.addActionListener( this );
+	      
+	    //sets the layout and adds listener for closing window
+	    getContentPane().setLayout(new GridBagLayout());
+	    GridBagConstraints gridBagConstraints;
     
-    warningLabel = new JLabel( );
-    timeRemainingLabel = new JLabel();
-    secondsLeftLabel = new JLabel();
-
-    ResignButton = new JButton();
-    ResignButton.addActionListener( this );
-	
-    DrawButton = new JButton();
-    DrawButton.addActionListener( this );
-      
-    //sets the layout and adds listener for closing window
-    getContentPane().setLayout(new GridBagLayout());
-    GridBagConstraints gridBagConstraints;
-    
-
-    //add window listener
-    addWindowListener(
-    		new WindowAdapter() { public void windowClosing(WindowEvent evt) { 
+    	addWindowListener( new WindowAdapter() { public void windowClosing(WindowEvent evt) { 
     			exitForm(evt);
         }});
 	
@@ -175,23 +148,23 @@ public class CheckerGUI extends JFrame implements ActionListener, IColleague{
     	}
 	
         
-        PlayerOnelabel.setText("Player 1:     " + playerOnesName );
-        PlayerOnelabel.setForeground( Color.black );
+        player1Label.setText("Player 1:     " + player1Name );
+        player1Label.setForeground( Color.black );
         
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.gridwidth = 4;
-        getContentPane().add(PlayerOnelabel, gridBagConstraints);
+        getContentPane().add(player1Label, gridBagConstraints);
         
-        playerTwoLabel.setText("Player 2:     " + playerTwosName );
-        playerTwoLabel.setForeground( Color.black );
+        player2Label.setText("Player 2:     " + player2Name );
+        player2Label.setForeground( Color.black );
 		
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 9;
         gridBagConstraints.gridwidth = 4;
-        getContentPane().add(playerTwoLabel, gridBagConstraints);
+        getContentPane().add(player2Label, gridBagConstraints);
         
         whosTurnLabel.setText("");
         whosTurnLabel.setForeground( new Color( 0, 100 , 0 ) );
@@ -223,21 +196,21 @@ public class CheckerGUI extends JFrame implements ActionListener, IColleague{
         gridBagConstraints.gridy = 4;
         getContentPane().add(secondsLeftLabel, gridBagConstraints);
         
-        ResignButton.setActionCommand("resign");
-        ResignButton.setText("Resign");
+        resignButton.setActionCommand("resign");
+        resignButton.setText("Resign");
         
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 8;
         gridBagConstraints.gridy = 7;
-        getContentPane().add(ResignButton, gridBagConstraints);
+        getContentPane().add(resignButton, gridBagConstraints);
         
-        DrawButton.setActionCommand("draw");
-        DrawButton.setText("Draw");
+        drawButton.setActionCommand("draw");
+        drawButton.setText("Draw");
         
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 8;
         gridBagConstraints.gridy = 6;
-        getContentPane().add(DrawButton, gridBagConstraints);
+        getContentPane().add(drawButton, gridBagConstraints);
 	
     }
     
@@ -294,15 +267,8 @@ public class CheckerGUI extends JFrame implements ActionListener, IColleague{
 			e.getActionCommand().equals( "60" ) ||
 			e.getActionCommand().equals( "62" ) ) {
 			
-		    	
-		    	
-		    	
-		    	
 			//call selectSpace with the button pressed
 			theFacade.selectSpace(Integer.parseInt(e.getActionCommand()));
-			
-			
-			
 			
 		    } else if(e.getActionCommand().equals("draw")){
 		    	invoker.invokeCommand(new DrawCommand(this));
@@ -319,11 +285,11 @@ public class CheckerGUI extends JFrame implements ActionListener, IColleague{
 		    //if the source came from the facade
 		    }else if( e.getSource().equals( theFacade ) ) {
 				//if its a player switch event
-				if ( (e.getActionCommand()).equals(theFacade.playerSwitch) ) {
+				if ( (e.getActionCommand()).equals(Facade.playerSwitch) ) {
 				    //set a new time
 				    timeRemaining = theFacade.getTimer();
 				    //if it is an update event
-				} else if ( (e.getActionCommand()).equals(theFacade.UPDATE) ) {
+				} else if ( (e.getActionCommand()).equals(Facade.UPDATE)) {
 				    //update the GUI
 				    update();
 				} else {
@@ -432,13 +398,13 @@ public class CheckerGUI extends JFrame implements ActionListener, IColleague{
 	this.requestActive(mediator);
 	this.requestPassive(mediator);
 	if(activePlayer.getNumber() == 2 ){
-	    playerTwoLabel.setForeground( Color.red );
-	    PlayerOnelabel.setForeground(Color.black );
-	    whosTurnLabel.setText( playerTwosName + "'s turn ");
+	    player2Label.setForeground( Color.red );
+	    player1Label.setForeground(Color.black );
+	    whosTurnLabel.setText( player2Name + "'s turn ");
 	}else if(activePlayer.getNumber() == 1 ){
-	    PlayerOnelabel.setForeground( Color.red );
-	    playerTwoLabel.setForeground(Color.black );
-	    whosTurnLabel.setText( playerOnesName + "'s turn" );
+	    player1Label.setForeground( Color.red );
+	    player2Label.setForeground(Color.black );
+	    whosTurnLabel.setText( player1Name + "'s turn" );
 	}
 	
 }
@@ -550,7 +516,6 @@ public class CheckerGUI extends JFrame implements ActionListener, IColleague{
 
 	@Override
 	public void RecievePassivePlayer(Player p) {
-		passivePlayer = p;
 		
 	}
 
