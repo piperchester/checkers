@@ -8,8 +8,8 @@ import java.awt.*;
 public class Board {
 
    private Piece pieces[];
-   public static int SINGLE = 0;
-   public static int KING = 1;
+   public static int SINGLE_PIECE_TYPE = 0;
+   public static int KING_PIECE_TYPE = 1;
    final private int MAX_BOARD_SIZE = 64;
 
    /**

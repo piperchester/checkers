@@ -337,7 +337,7 @@ public class CheckerGUI extends JFrame implements ActionListener, IColleague{
 				//check to see if color is blue
 				if( board.getPieceColorAtSpace( i ) == Color.blue ){
 		
-				    if((board.getPieceAt(i)).getType() == Board.SINGLE){
+				    if((board.getPieceAt(i)).getType() == Board.SINGLE_PIECE_TYPE){
 						
 						temp = (JButton)possibleTiles.get(i); // show a blue single piece in that spot board
 			
@@ -347,7 +347,7 @@ public class CheckerGUI extends JFrame implements ActionListener, IColleague{
 						} catch( MalformedURLException e ){
 						    System.out.println(e.getMessage());
 						}
-				    } else if((board.getPieceAt(i)).getType() == Board.KING ){
+				    } else if((board.getPieceAt(i)).getType() == Board.KING_PIECE_TYPE ){
 				    	temp = (JButton)possibleTiles.get(i);  //show a blue king piece in that spot board
 		
 						//get the picture formt the web
@@ -362,7 +362,7 @@ public class CheckerGUI extends JFrame implements ActionListener, IColleague{
 				} else if( board.getPieceColorAtSpace( i ) == Color.white ){
 		
 				    // Check Single VS Kinged
-				    if((board.getPieceAt(i)).getType() == Board.SINGLE){
+				    if((board.getPieceAt(i)).getType() == Board.SINGLE_PIECE_TYPE){
 		
 						temp = (JButton)possibleTiles.get(i);
 			
@@ -374,7 +374,7 @@ public class CheckerGUI extends JFrame implements ActionListener, IColleague{
 						}
 					
 					
-				    }else if((board.getPieceAt(i)).getType() == Board.KING ){
+				    }else if((board.getPieceAt(i)).getType() == Board.KING_PIECE_TYPE ){
 			
 						temp = (JButton)possibleTiles.get(i);
 			
