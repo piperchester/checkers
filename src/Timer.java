@@ -1,5 +1,3 @@
-
-
 /**
  *  Timer runs on the separate thread, during simulation tells
  *  facade to update the warning and normal times 
@@ -8,10 +6,9 @@
  *
  *  @author
  */
-
 public class Timer extends Thread {
 
-    private static int INTERVAL = 100;    
+    private static int SET_INTERVAL = 100;    
     private int      interval;
     private Notifier notifier;
     
@@ -19,8 +16,8 @@ public class Timer extends Thread {
      * Creates a new timer.
      */    
     public Timer(){
-		notifier = new Notifier( notifier.TIME_UPDATE );
-		interval = INTERVAL;
+		notifier = new Notifier(Notifier.TIME_UPDATE);
+		interval = SET_INTERVAL;
     }
     
     /**
@@ -28,9 +25,9 @@ public class Timer extends Thread {
      *
      * @param inter - the new interval
      */
-    public Timer( int inter ){
-		notifier = new Notifier( notifier.TIME_UPDATE );
-		interval = inter;
+    public Timer(int interval){
+		notifier = new Notifier(Notifier.TIME_UPDATE);
+		this.interval = interval;
     }
     
     /**
@@ -39,9 +36,9 @@ public class Timer extends Thread {
      */
     public void run() {
 		// Start the timer thread, notify the facade every interval
-		while ( true ) {
+		while (true) {
 		    try {
-		    	sleep( interval );
+		    	sleep(interval);
 		    }
 		    catch ( InterruptedException e ) {
 		    	System.err.println( "The timer malfunctioned." );
@@ -54,7 +51,6 @@ public class Timer extends Thread {
      * Get the notifier.
      * 
      * @return Notifier
-     * @roseuid 3C5AE4FD00C1
      */
     public Notifier getNotifier(){
     	return notifier;
