@@ -1,4 +1,4 @@
 checkers
 ========
 
-An old GUI-based checkers (draugts) game that has limited networking functionality. 
+An old GUI-based Java checkers (draugjts) game. 
